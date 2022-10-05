@@ -3,7 +3,6 @@
   <div class="container">
     <h2 class="quiz">Java Loops-Quiz</h2>
     <p class="progress">1/2</p>
-    <p class="score">Score:1</p>
 
     <div class="content">
       <img src="src/assets/placeholder-image.png" alt="placeholder-img" />
@@ -27,12 +26,9 @@
 }
 
 .progress {
-  text-align: center;
-}
-.score {
   display: flex;
   justify-content: flex-end;
-  margin-right: 1em;
+  margin-right: 1.2em;
 }
 
 .content {
@@ -61,9 +57,14 @@
   margin-top: 1em;
   width: 100%;
 }
-.navigation{
+.navigation {
   display: flex;
   justify-content: space-between;
   margin: 2em;
+}
+
+.prev,
+.next {
+  padding: 1em;
 }
 </style>
