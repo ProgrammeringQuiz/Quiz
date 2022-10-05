@@ -1,29 +1,76 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
+import { ref } from "vue";
+let show = ref();
 </script>
 
 <template>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+  />
   <header>
     <div class="wrapper">
-      <nav>
-        <RouterLink to="/">Quiz</RouterLink>
-        <RouterLink to="/about">Profile</RouterLink>
+      <div class="hamburger">
+        <h3 class="quiz">Java Loops-Quiz</h3>
+        <i class="fa fa-bars fa-3x" @click="show = !show"></i>
+      </div>
+      <nav v-if="show">
+        <div class="menuItem">
+          <RouterLink class="test" to="/">Quiz</RouterLink>
+        </div>
+
+        <div class="menuItem">
+          <RouterLink class="test" to="/about">Profile</RouterLink>
+        </div>
       </nav>
     </div>
   </header>
+
   <RouterView />
 </template>
 
 <style scoped>
-nav {
+.wrapper {
+  box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+}
+.hamburger {
   display: flex;
-  justify-content: space-evenly;
-  padding: 1em;
+}
+.hamburger i {
+  padding: 0.14em 0.2em 0 0.2em;
+  background-color: #2d4263;
+}
+.quiz {
+  font-family: Monospace, sans-serif;
+  flex-grow: 2;
+  text-align: center;
+  color: white;
+}
+
+nav {
+  background-color: #2d4263;
+}
+
+.menuItem {
+  display: flex;
+  flex-direction: column;
+}
+
+nav a {
+  text-decoration: none;
+  color: white;
+  margin: 0.8em;
+}
+.menuItem:hover {
+  background-color: #232747;
 }
 </style>
 
 <style>
 body {
   background-color: #28282b;
+  padding: 0;
+  margin: 0;
 }
 </style>
