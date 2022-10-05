@@ -44,8 +44,8 @@
   width: 100%;
 }
 
-.content p{
-  margin: 0;
+.content p {
+  margin: 1em;
   padding: 0;
   text-align: center;
 }
