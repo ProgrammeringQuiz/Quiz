@@ -1,0 +1,24 @@
+{
+  "quizDemo": [
+    {
+      "question": "What is Vue JS",
+      "answer": 0,
+      "options": [
+        "A front end framework",
+        "A library",
+        "An ice cream maker"
+      ],
+      "selected": null
+    },
+    {
+      "question": "What is Vue Vuex",
+      "answer": 2,
+      "options": [
+        "A front end framework",
+        "A library",
+        "State management library"
+      ],
+      "selected": null
+    }
+  ]
+}
