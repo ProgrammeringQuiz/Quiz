@@ -14,6 +14,13 @@ See [Vite Configuration Reference](https://vitejs.dev/config/).
 
 ```sh
 npm install
+npm install -g json-server
+```
+### Run Json-Server
+Change directory to json before running this
+
+```sh
+json-server --watch quizData.json --port 3011
 ```
 
 ### Compile and Hot-Reload for Development
