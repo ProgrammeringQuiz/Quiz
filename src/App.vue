@@ -2,6 +2,12 @@
 import { RouterLink, RouterView } from "vue-router";
 import { ref } from "vue";
 let show = ref();
+
+function resize() {
+  show.value = window.innerWidth >= 1024;
+}
+resize();
+window.addEventListener("resize", resize);
 </script>
 
 <template>
@@ -19,7 +25,6 @@ let show = ref();
         <div class="menuItem">
           <RouterLink class="test" to="/">Quiz</RouterLink>
         </div>
-
         <div class="menuItem">
           <RouterLink class="test" to="/about">Profile</RouterLink>
         </div>
@@ -54,7 +59,6 @@ nav {
 
 .menuItem {
   display: flex;
-  flex-direction: column;
 }
 
 nav a {
@@ -65,12 +69,43 @@ nav a {
 .menuItem:hover {
   background-color: #232747;
 }
+
+@media screen and (min-width: 1024px) {
+  .wrapper {
+    display: flex;
+    justify-content: space-evenly;
+  }
+  .quiz {
+    flex-grow: 1;
+    margin: 1em;
+  }
+  .hamburger i {
+    display: none;
+  }
+  nav {
+    display: flex;
+    justify-content: space-evenly;
+    flex-grow: 2;
+    align-items: center;
+    font-family: Monospace, sans-serif;
+  }
+
+  .menuItem {
+    flex-direction: row;
+  }
+
+  .menuItem:hover {
+    background-color: #232747;
+    border-radius: 0.5em;
+  }
+}
 </style>
 
 <style>
 body {
+  max-width: 80%;
   background-color: #28282b;
   padding: 0;
-  margin: 0;
+  margin: auto;
 }
 </style>
