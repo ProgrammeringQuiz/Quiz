@@ -1,7 +1,6 @@
 <script setup></script>
 <template>
   <div class="container">
-    <h2 class="quiz">Java Loops-Quiz</h2>
     <p class="progress">1/2</p>
 
     <div class="content">
@@ -20,15 +19,16 @@
 </template>
 
 <style scoped>
-.quiz {
-  text-align: center;
-  border: solid 1px;
+.container {
+  font-family: Monospace, sans-serif;
+  margin: 0.3em;
 }
 
 .progress {
   display: flex;
   justify-content: flex-end;
   margin-right: 1.2em;
+  color: #c84b31;
 }
 
 .content {
@@ -41,9 +41,11 @@
 }
 
 .content p {
+  font-size: 1.2em;
   margin: 1em;
   padding: 0;
   text-align: center;
+  color: #c84b31;
 }
 
 #btnOne {
@@ -56,7 +58,13 @@
   padding: 1em;
   margin-top: 1em;
   width: 100%;
+  background-color: #2d4263;
+  border: 0;
+  color: white;
+  border-radius: 2em;
+  cursor: pointer;
 }
+
 .navigation {
   display: flex;
   justify-content: space-between;
@@ -66,5 +74,16 @@
 .prev,
 .next {
   padding: 1em;
+  background-color: #2d4263;
+  border: 0;
+  color: white;
+  border-radius: 0.5em;
+  cursor: pointer;
+}
+
+.questionBtn:hover,
+.prev:hover,
+.next:hover {
+  background-color: #232747;
 }
 </style>
