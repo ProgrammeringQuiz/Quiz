@@ -1,4 +1,9 @@
-<script setup></script>
+<script setup>
+const props = defineProps({
+  questionData: Object,
+})
+console.log("props",props.questionData)
+</script>
 <template>
   <div class="container">
     <h2 class="quiz">Java Loops-Quiz</h2>
@@ -6,13 +11,9 @@
 
     <div class="content">
       <img src="src/assets/placeholder-image.png" alt="placeholder-img" />
-      <p>what is x?</p>
+      <p>{{props.questionData.question}}</p>
     </div>
-    <button class="questionBtn" id="btnOne">answer#1</button>
-    <button class="questionBtn" id="btnTwo">answer#2</button>
-    <button class="questionBtn" id="btnThree">answer#3</button>
-    <button class="questionBtn" id="btnFour">answer#4</button>
-
+    <button v-for = "option in props.questionData.options" class="questionBtn"  id="btnOne">{{option}}</button>
     <div class="navigation">
       <button class="prev">Previous</button> <button class="next">Next</button>
     </div>
