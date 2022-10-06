@@ -1,12 +1,11 @@
 <script setup>
 const props = defineProps({
   questionData: Object,
-})
-console.log("props",props.questionData)
+});
+console.log("props", props.questionData);
 
-function warn(){
-  alert("Function is called")
-
+function warn() {
+  alert("Function is called");
 }
 </script>
 <template>
@@ -14,11 +13,23 @@ function warn(){
     <div class="content">
       <p class="progress">1/2</p>
       <img src="src/assets/placeholder-image.png" alt="placeholder-img" />
-      <p>{{props.questionData.question}}</p>
+      <p>{{ props.questionData.question }}</p>
     </div>
-    <button v-for = "option in props.questionData.options" class="questionBtn"  id="btnOne">{{option}}</button>
+
+    <div class="choices">
+      <button
+        v-for="option in props.questionData.options"
+        :key="option.id"
+        class="questionBtn"
+        id="btnOne"
+      >
+        {{ option }}
+      </button>
+    </div>
+
     <div class="navigation">
-      <button @click="$emit('previousQuestion')" class="prev">Previous</button> <button @click="$emit('nextQuestion')" class="next">Next</button>
+      <button @click="$emit('previousQuestion')" class="prev">Previous</button>
+      <button @click="$emit('nextQuestion')" class="next">Next</button>
     </div>
   </div>
 </template>
