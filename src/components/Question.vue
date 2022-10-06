@@ -1,20 +1,24 @@
-<script setup></script>
+<script setup>
+const props = defineProps({
+  questionData: Object,
+})
+console.log("props",props.questionData)
+
+function warn(){
+  alert("Function is called")
+
+}
+</script>
 <template>
   <div class="container">
     <div class="content">
       <p class="progress">1/2</p>
       <img src="src/assets/placeholder-image.png" alt="placeholder-img" />
-      <p>what is x?</p>
+      <p>{{props.questionData.question}}</p>
     </div>
-
-    <div class="choices">
-      <button class="questionBtn" id="btnOne">answer#1</button>
-      <button class="questionBtn" id="btnTwo">answer#2</button>
-      <button class="questionBtn" id="btnThree">answer#3</button>
-      <button class="questionBtn" id="btnFour">answer#4</button>
-    </div>
+    <button v-for = "option in props.questionData.options" class="questionBtn"  id="btnOne">{{option}}</button>
     <div class="navigation">
-      <button class="prev">Previous</button> <button class="next">Next</button>
+      <button @click="$emit('previousQuestion')" class="prev">Previous</button> <button @click="$emit('nextQuestion')" class="next">Next</button>
     </div>
   </div>
 </template>
