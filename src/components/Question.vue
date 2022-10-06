@@ -1,17 +1,18 @@
 <script setup></script>
 <template>
   <div class="container">
-    <p class="progress">1/2</p>
-
     <div class="content">
+      <p class="progress">1/2</p>
       <img src="src/assets/placeholder-image.png" alt="placeholder-img" />
       <p>what is x?</p>
     </div>
-    <button class="questionBtn" id="btnOne">answer#1</button>
-    <button class="questionBtn" id="btnTwo">answer#2</button>
-    <button class="questionBtn" id="btnThree">answer#3</button>
-    <button class="questionBtn" id="btnFour">answer#4</button>
 
+    <div class="choices">
+      <button class="questionBtn" id="btnOne">answer#1</button>
+      <button class="questionBtn" id="btnTwo">answer#2</button>
+      <button class="questionBtn" id="btnThree">answer#3</button>
+      <button class="questionBtn" id="btnFour">answer#4</button>
+    </div>
     <div class="navigation">
       <button class="prev">Previous</button> <button class="next">Next</button>
     </div>
@@ -21,23 +22,22 @@
 <style scoped>
 .container {
   font-family: Monospace, sans-serif;
-  margin: 0.3em;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
 }
 
 .progress {
   display: flex;
   justify-content: flex-end;
-  margin-right: 1.2em;
   color: #c84b31;
 }
 
-.content {
-  max-width: 90%;
-  margin: auto;
-}
-
 .content img {
-  width: 100%;
+  width: 33em;
+  align-self: center;
 }
 
 .content p {
@@ -47,9 +47,8 @@
   text-align: center;
   color: #c84b31;
 }
-
-#btnOne {
-  margin-top: 2em;
+.choices {
+  margin: 0.3em;
 }
 
 .questionBtn {
@@ -85,5 +84,32 @@
 .prev:hover,
 .next:hover {
   background-color: #232747;
+}
+
+@media screen and (min-width: 600px) {
+  .content img {
+    max-width: 30em;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .container {
+    max-width: 80%;
+    margin: auto;
+  }
+
+  .content img {
+    max-width: 50%;
+  }
+
+  .choices {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 50% 50%;
+  }
+
+  .questionBtn {
+    width: 99%;
+  }
 }
 </style>
