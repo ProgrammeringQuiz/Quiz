@@ -19,6 +19,16 @@
         "State management library"
       ],
       "selected": null
+    },
+    {
+      "question": "What is Quiz",
+      "answer": 3,
+      "options": [
+        "A quiz",
+        "A library",
+        "State management library"
+      ],
+      "selected": null
     }
   ]
 }

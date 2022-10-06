@@ -1,7 +1,15 @@
-<script setup></script>
+<script setup>
+import userQuiz from "../composables/quizDemo";
+
+const {  getQuiz } = userQuiz();
+
+
+
+</script>
+
 <template>
   <div class="container">
-    <p class="progress">1/2</p>
+    <p class="progress">1/{{ getQuiz.length }}</p>
 
     <div class="content">
       <img src="src/assets/placeholder-image.png" alt="placeholder-img" />
