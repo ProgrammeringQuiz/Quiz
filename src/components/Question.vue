@@ -4,9 +4,6 @@ const props = defineProps({
 });
 console.log("props", props.questionData);
 
-function warn() {
-  alert("Function is called");
-}
 </script>
 <template>
   <div class="container">
