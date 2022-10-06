@@ -38,6 +38,8 @@ window.addEventListener("resize", resize);
 <style scoped>
 .wrapper {
   box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+  max-width: 200em;
+  margin: auto;
 }
 .hamburger {
   display: flex;
@@ -103,9 +105,14 @@ nav a {
 
 <style>
 body {
-  max-width: 80%;
   background-color: #28282b;
   padding: 0;
-  margin: auto;
+  margin: 0;
+}
+@media screen and (min-width: 1024px) {
+  body {
+    max-width: 100em;
+    margin: auto;
+  }
 }
 </style>
