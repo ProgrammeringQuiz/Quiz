@@ -6,7 +6,8 @@
       "options": [
         "A front end framework",
         "A library",
-        "An ice cream maker"
+        "An ice cream maker",
+        "A computer program"
       ],
       "selected": null
     },
@@ -14,9 +15,10 @@
       "question": "What is Vue Vuex",
       "answer": 2,
       "options": [
-        "A front end framework",
-        "A library",
-        "State management library"
+        "A Website for learning Vue",
+        "A kind of fruit",
+        "State management library",
+        "Programming language"
       ],
       "selected": null
     }
