@@ -1,13 +1,8 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
 import { ref } from "vue";
-let show = ref();
 
-function resize() {
-  show.value = window.innerWidth >= 1024;
-}
-resize();
-window.addEventListener("resize", resize);
+let show = ref();
 </script>
 
 <template>
@@ -22,6 +17,15 @@ window.addEventListener("resize", resize);
         <i class="fa fa-bars fa-3x" @click="show = !show"></i>
       </div>
       <nav v-if="show">
+        <div class="menuItem" @click="show = !show">
+          <RouterLink class="test" to="/">Quiz</RouterLink>
+        </div>
+        <div class="menuItem" @click="show = !show">
+          <RouterLink class="test" to="/about">Profile</RouterLink>
+        </div>
+      </nav>
+
+      <nav class="desktop">
         <div class="menuItem">
           <RouterLink class="test" to="/">Quiz</RouterLink>
         </div>
@@ -72,6 +76,10 @@ nav a {
   background-color: #232747;
 }
 
+.desktop {
+  display: none;
+}
+
 @media screen and (min-width: 1024px) {
   .wrapper {
     display: flex;
@@ -84,7 +92,8 @@ nav a {
   .hamburger i {
     display: none;
   }
-  nav {
+
+  .desktop {
     display: flex;
     justify-content: space-evenly;
     flex-grow: 2;
