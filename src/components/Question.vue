@@ -3,7 +3,6 @@ const props = defineProps({
   questionData: Object,
 });
 console.log("props", props.questionData);
-
 </script>
 <template>
   <div class="container">
@@ -16,7 +15,7 @@ console.log("props", props.questionData);
     <div class="choices">
       <button
         v-for="option in props.questionData.options"
-        :key="option.id"
+        :key="option"
         class="questionBtn"
         id="btnOne"
       >
