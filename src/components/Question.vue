@@ -1,27 +1,25 @@
 <script setup>
-import userQuiz from "../composables/quizDemo";
+import {ref} from "vue"
 
-const {  getQuiz } = userQuiz();
-
-
+const props = defineProps({
+  questionData: Object,
+  questionSize: ref(),
+  questionNumber: ref(0),
+})
 
 </script>
 
 <template>
-  <div class="container">
-    <p class="progress">1/{{ getQuiz.length }}</p>
+  <div class="container" v-if="props.questionSize.length > 0">
+    <p class="progress"> {{ props.questionNumber }} / {{ props.questionSize.length }} </p>
 
     <div class="content">
       <img src="src/assets/placeholder-image.png" alt="placeholder-img" />
-      <p>what is x?</p>
+      <p>{{props.questionData.question}}</p>
     </div>
-    <button class="questionBtn" id="btnOne">answer#1</button>
-    <button class="questionBtn" id="btnTwo">answer#2</button>
-    <button class="questionBtn" id="btnThree">answer#3</button>
-    <button class="questionBtn" id="btnFour">answer#4</button>
-
+    <button v-for = "option in props.questionData.options" class="questionBtn"  id="btnOne">{{option}}</button>
     <div class="navigation">
-      <button class="prev">Previous</button> <button class="next">Next</button>
+      <button @click="$emit('previousQuestion')" class="prev">Previous</button> <button @click="$emit('nextQuestion')" class="next">Next</button>
     </div>
   </div>
 </template>

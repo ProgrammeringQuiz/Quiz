@@ -5,3 +5,12 @@ export const fetchQuiz = async () => {
     return await response.json()
 };
 
+export const storeQuiz = async (question) => {
+    return await fetch(`${baseURL}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(question)
+    });
+};
