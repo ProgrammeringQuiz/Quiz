@@ -1,19 +1,26 @@
 <script setup>
-import {ref} from "vue"
+import { ref } from "vue";
 
 const props = defineProps({
   questionData: Object,
   questionSize: ref(),
   questionNumber: ref(0),
   questionCompleted: ref(),
-})
+});
 
+function getQuestionBtnIndex(index) {
+  console.log(index);
+}
 </script>
 
 <template>
-
-  <div class="container" v-if="props.questionSize.length > 0 && props.questionCompleted == false">
-    <p class="progress"> {{ props.questionNumber }} / {{ props.questionSize.length }} </p>
+  <div
+    class="container"
+    v-if="props.questionSize.length > 0 && props.questionCompleted === false"
+  >
+    <p class="progress">
+      {{ props.questionNumber }} / {{ props.questionSize.length }}
+    </p>
     <div class="content">
       <p class="progress">1/2</p>
       <img src="src/assets/placeholder-image.png" alt="placeholder-img" />
@@ -22,10 +29,11 @@ const props = defineProps({
 
     <div class="choices">
       <button
-        v-for="option in props.questionData.options"
+        v-for="(option, index) in props.questionData.options"
         :key="option"
         class="questionBtn"
         id="btnOne"
+        @click="getQuestionBtnIndex(index)"
       >
         {{ option }}
       </button>
@@ -38,7 +46,7 @@ const props = defineProps({
   </div>
   <div v-else>
     <h2>You have finished all questions!</h2>
-    <p> Your score is 0 / {{ questionSize.length }}</p>
+    <p>Your score is 0 / {{ questionSize.length }}</p>
   </div>
 </template>
 
