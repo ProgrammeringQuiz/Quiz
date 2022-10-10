@@ -1,21 +1,23 @@
 <script setup>
-import {ref} from "vue"
+import { ref } from "vue";
 
 const props = defineProps({
   questionData: Object,
   questionSize: ref(),
   questionNumber: ref(0),
   questionCompleted: ref(),
-})
-
+});
 </script>
 
 <template>
-
-  <div class="container" v-if="props.questionSize.length > 0 && props.questionCompleted == false">
-    <p class="progress"> {{ props.questionNumber }} / {{ props.questionSize.length }} </p>
+  <div
+    class="container"
+    v-if="props.questionSize.length > 0 && props.questionCompleted == false"
+  >
+    <p class="progress">
+      {{ props.questionNumber }} / {{ props.questionSize.length }}
+    </p>
     <div class="content">
-      <p class="progress">1/2</p>
       <img src="src/assets/placeholder-image.png" alt="placeholder-img" />
       <p>{{ props.questionData.question }}</p>
     </div>
@@ -37,8 +39,11 @@ const props = defineProps({
     </div>
   </div>
   <div v-else>
-    <h2>You have finished all questions!</h2>
-    <p> Your score is 0 / {{ questionSize.length }}</p>
+    <div class="result">
+      <h2>You have finished all questions!</h2>
+      <p>Your score is 0 / {{ questionSize.length }}</p>
+    </div>
+    <div class="resultBtn"><button>Home</button> <button>Profile</button></div>
   </div>
 </template>
 
@@ -107,6 +112,37 @@ const props = defineProps({
 .prev:hover,
 .next:hover {
   background-color: #232747;
+}
+
+.result {
+  max-width: 35em;
+  margin: 5em auto auto;
+  display: flex;
+  background-color: #2d4263;
+  border-radius: 0.5em;
+  padding: 0.5em 0.5em 2em 0.5em;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  color: white;
+  box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+}
+
+.resultBtn {
+  display: flex;
+  justify-content: space-evenly;
+  max-width: 35em;
+  margin: auto;
+}
+
+.resultBtn button {
+  background-color: #2d4263;
+  margin-top: 1em;
+  padding: 1em;
+  border: 0;
+  color: white;
+  border-radius: 0.5em;
+  cursor: pointer;
 }
 
 @media screen and (min-width: 600px) {
