@@ -7,6 +7,10 @@ const props = defineProps({
   questionNumber: ref(0),
   questionCompleted: ref(),
 });
+
+function getQuestionBtnIndex(index) {
+  console.log(index);
+}
 </script>
 
 <template>
@@ -24,10 +28,11 @@ const props = defineProps({
 
     <div class="choices">
       <button
-        v-for="option in props.questionData.options"
+        v-for="(option, index) in props.questionData.options"
         :key="option"
         class="questionBtn"
         id="btnOne"
+        @click="getQuestionBtnIndex(index)"
       >
         {{ option }}
       </button>
