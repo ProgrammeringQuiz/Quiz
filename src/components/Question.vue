@@ -13,9 +13,8 @@ const props = defineProps({
 <template>
 
   <div class="container" v-if="props.questionSize.length > 0 && props.questionCompleted == false">
-    <p class="progress"> {{ props.questionNumber }} / {{ props.questionSize.length }} </p>
     <div class="content">
-      <p class="progress">1/2</p>
+      <p class="progress"> {{ props.questionNumber }} / {{ props.questionSize.length }} </p>
       <img src="src/assets/placeholder-image.png" alt="placeholder-img" />
       <p>{{ props.questionData.question }}</p>
     </div>
@@ -33,7 +32,8 @@ const props = defineProps({
 
     <div class="navigation">
       <button @click="$emit('previousQuestion')" class="prev">Previous</button>
-      <button @click="$emit('nextQuestion')" class="next">Next</button>
+      <button @click="$emit('nextQuestion')" class="next" v-if="props.questionNumber == props.questionSize.length"> finish </button>
+      <button @click="$emit('nextQuestion')" class="next" v-else> next </button>
     </div>
   </div>
   <div v-else>
