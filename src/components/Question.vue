@@ -9,9 +9,10 @@ const props = defineProps({
   questionCompleted: ref(),
 });
 
+let value = 0;
+
 function getQuestionBtnIndex(index) {
     console.log(index);
-    let value = 0;
     if(props.questionData.answer === index){
       value++
       console.log(value)
