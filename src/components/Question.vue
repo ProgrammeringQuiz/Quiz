@@ -1,6 +1,7 @@
 <script setup>
+import { ref } from "vue";
 
-import {ref} from "vue";
+const emit = defineEmits(["nextQuestion", "previousQuestion"]);
 
 const props = defineProps({
   questionData: Object,
@@ -8,17 +9,30 @@ const props = defineProps({
   questionNumber: ref(0),
   questionCompleted: ref(),
 });
-
-let value = 0;
+let value = ref(0);
+let isDisabled = ref(false);
+const testIndex = ref(0);
 
 function getQuestionBtnIndex(index) {
-    console.log(index);
-    if(props.questionData.answer === index){
-      value++
-      console.log(value)
-    }
-  return value;
+  testIndex.value = index;
+  if (props.questionData.answer === index) {
+    value.value++;
+    document.getElementById(index.toString()).style.backgroundColor = 'green';
+    isDisabled.value = true;
+  } else {
+    document.getElementById(index.toString()).style.backgroundColor = 'red';
+    isDisabled.value = true;
+  }
+}
 
+function nextQuestion() {
+  console.log(props.questionSize.length);
+  document.getElementById(testIndex.value).style.backgroundColor = "#2d4263";
+  isDisabled.value = false;
+  emit("nextQuestion");
+}
+function prevQuestion() {
+  emit("previousQuestion");
 }
 </script>
 
@@ -27,11 +41,10 @@ function getQuestionBtnIndex(index) {
     class="container"
     v-if="props.questionSize.length > 0 && props.questionCompleted === false"
   >
-    <p class="progress">
-      {{ props.questionNumber }} / {{ props.questionSize.length }}
-    </p>
     <div class="content">
-      <p class="progress">1/2</p>
+      <p class="progress">
+        {{ props.questionNumber }} / {{ props.questionSize.length }}
+      </p>
       <img src="src/assets/placeholder-image.png" alt="placeholder-img" />
       <p>{{ props.questionData.question }}</p>
     </div>
@@ -39,9 +52,10 @@ function getQuestionBtnIndex(index) {
     <div class="choices">
       <button
         v-for="(option, index) in props.questionData.options"
-        :key="option"
+        :key="option.id"
+        :disabled="isDisabled"
         class="questionBtn"
-        id="btnOne"
+        :id="index"
         @click="getQuestionBtnIndex(index)"
       >
         {{ option }}
@@ -49,13 +63,13 @@ function getQuestionBtnIndex(index) {
     </div>
 
     <div class="navigation">
-      <button @click="$emit('previousQuestion')" class="prev">Previous</button>
-      <button @click="$emit('nextQuestion')" class="next">Next</button>
+      <button @click="prevQuestion" class="prev">Previous</button>
+      <button @click="nextQuestion" class="next">Next</button>
     </div>
   </div>
   <div v-else>
     <h2>You have finished all questions!</h2>
-    <p>Your score is 0 / {{ questionSize.length }}</p>
+    <p>Your score is {{ value }} / {{ questionSize.length }}</p>
   </div>
 </template>
 
