@@ -12,7 +12,7 @@ const props = defineProps({
 <template>
   <div
     class="container"
-    v-if="props.questionSize.length > 0 && props.questionCompleted == false"
+    v-if="props.questionSize.length > 0 && props.questionCompleted === false"
   >
     <p class="progress">
       {{ props.questionNumber }} / {{ props.questionSize.length }}
