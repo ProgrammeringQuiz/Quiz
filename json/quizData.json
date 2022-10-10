@@ -11,7 +11,7 @@
       "selected": null
     },
     {
-      "question": "What is Vue Vuex",
+      "question": "What is Vue",
       "answer": 2,
       "options": [
         "A front end framework",
@@ -19,6 +19,17 @@
         "State management library"
       ],
       "selected": null
+    },
+    {
+      "question": "What is this",
+      "answer": 3,
+      "options": [
+        "A quiz website",
+        "A random box",
+        "A car"
+      ],
+      "selected": null
     }
+
   ]
 }
