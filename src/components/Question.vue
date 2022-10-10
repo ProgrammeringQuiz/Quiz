@@ -43,7 +43,6 @@ const props = defineProps({
       <h2>You have finished all questions!</h2>
       <p>Your score is 0 / {{ questionSize.length }}</p>
     </div>
-    <div class="resultBtn"><button>Home</button> <button>Profile</button></div>
   </div>
 </template>
 
@@ -120,29 +119,12 @@ const props = defineProps({
   display: flex;
   background-color: #2d4263;
   border-radius: 0.5em;
-  padding: 0.5em 0.5em 2em 0.5em;
+  padding: 0.5em 0.5em 1em 0.5em;
   justify-content: center;
   flex-direction: column;
   text-align: center;
   color: white;
   box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
-}
-
-.resultBtn {
-  display: flex;
-  justify-content: space-evenly;
-  max-width: 35em;
-  margin: auto;
-}
-
-.resultBtn button {
-  background-color: #2d4263;
-  margin-top: 1em;
-  padding: 1em;
-  border: 0;
-  color: white;
-  border-radius: 0.5em;
-  cursor: pointer;
 }
 
 @media screen and (min-width: 600px) {
