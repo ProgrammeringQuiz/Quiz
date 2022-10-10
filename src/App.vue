@@ -1,7 +1,8 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
 import { ref } from "vue";
-let show = ref();
+
+let show = ref(false);
 </script>
 
 <template>
@@ -15,14 +16,21 @@ let show = ref();
         <h3 class="quiz">Java Loops-Quiz</h3>
         <i class="fa fa-bars fa-3x" @click="show = !show"></i>
       </div>
-      <nav v-if="show">
-        <div class="menuItem">
-          <RouterLink class="test" to="/">Quiz</RouterLink>
-        </div>
+      <Transition>
+        <nav v-if="show" id="mobile">
+          <RouterLink class="route" @click="show = !show" to="/"
+            >Quiz</RouterLink
+          >
+          <RouterLink class="route" @click="show = !show" to="/about"
+            >Profile</RouterLink
+          >
+        </nav>
+      </Transition>
 
-        <div class="menuItem">
-          <RouterLink class="test" to="/about">Profile</RouterLink>
-        </div>
+      <nav id="desktop">
+        <RouterLink class="route" to="/">Quiz</RouterLink>
+
+        <RouterLink class="route" to="/about">Profile</RouterLink>
       </nav>
     </div>
   </header>
@@ -31,8 +39,22 @@ let show = ref();
 </template>
 
 <style scoped>
+/* These are you used for hamburger menu transition, do NOT remove */
+.v-enter-active,
+.v-leave-active {
+  transition: all 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  transform: translateX(30em);
+  opacity: 0;
+}
+/* ------  */
 .wrapper {
   box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+  max-width: 200em;
+  margin: auto;
 }
 .hamburger {
   display: flex;
@@ -50,20 +72,57 @@ let show = ref();
 
 nav {
   background-color: #2d4263;
+  position: absolute;
+  width: 100%;
 }
-
-.menuItem {
-  display: flex;
-  flex-direction: column;
-}
-
 nav a {
+  display: flex;
+  padding: 0.8em;
   text-decoration: none;
   color: white;
-  margin: 0.8em;
 }
-.menuItem:hover {
+.route:hover {
   background-color: #232747;
+}
+
+#desktop {
+  display: none;
+}
+
+@media screen and (min-width: 1024px) {
+  .wrapper {
+    display: flex;
+    justify-content: space-evenly;
+  }
+  .quiz {
+    flex-grow: 1;
+    margin: 1em;
+  }
+  .hamburger i {
+    display: none;
+  }
+
+  #mobile {
+    display: none;
+  }
+
+  #desktop {
+    display: flex;
+    position: relative;
+    justify-content: space-evenly;
+    flex-grow: 2;
+    align-items: center;
+    font-family: Monospace, sans-serif;
+  }
+
+  .route {
+    flex-direction: row;
+  }
+
+  .route:hover {
+    background-color: #232747;
+    border-radius: 0.5em;
+  }
 }
 </style>
 
@@ -72,5 +131,11 @@ body {
   background-color: #28282b;
   padding: 0;
   margin: 0;
+}
+@media screen and (min-width: 1024px) {
+  body {
+    max-width: 100em;
+    margin: auto;
+  }
 }
 </style>

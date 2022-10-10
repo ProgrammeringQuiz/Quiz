@@ -11,16 +11,29 @@ const props = defineProps({
 </script>
 
 <template>
+
   <div class="container" v-if="props.questionSize.length > 0 && props.questionCompleted == false">
     <p class="progress"> {{ props.questionNumber }} / {{ props.questionSize.length }} </p>
-
     <div class="content">
+      <p class="progress">1/2</p>
       <img src="src/assets/placeholder-image.png" alt="placeholder-img" />
-      <p>{{props.questionData.question}}</p>
+      <p>{{ props.questionData.question }}</p>
     </div>
-    <button v-for = "option in props.questionData.options" class="questionBtn"  id="btnOne">{{option}}</button>
+
+    <div class="choices">
+      <button
+        v-for="option in props.questionData.options"
+        :key="option"
+        class="questionBtn"
+        id="btnOne"
+      >
+        {{ option }}
+      </button>
+    </div>
+
     <div class="navigation">
-      <button @click="$emit('previousQuestion')" class="prev">Previous</button> <button @click="$emit('nextQuestion')" class="next">Next</button>
+      <button @click="$emit('previousQuestion')" class="prev">Previous</button>
+      <button @click="$emit('nextQuestion')" class="next">Next</button>
     </div>
   </div>
   <div v-else>
@@ -32,23 +45,22 @@ const props = defineProps({
 <style scoped>
 .container {
   font-family: Monospace, sans-serif;
-  margin: 0.3em;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
 }
 
 .progress {
   display: flex;
   justify-content: flex-end;
-  margin-right: 1.2em;
   color: #c84b31;
 }
 
-.content {
-  max-width: 90%;
-  margin: auto;
-}
-
 .content img {
-  width: 100%;
+  width: 33em;
+  align-self: center;
 }
 
 .content p {
@@ -58,9 +70,8 @@ const props = defineProps({
   text-align: center;
   color: #c84b31;
 }
-
-#btnOne {
-  margin-top: 2em;
+.choices {
+  margin: 0.3em;
 }
 
 .questionBtn {
@@ -96,5 +107,32 @@ const props = defineProps({
 .prev:hover,
 .next:hover {
   background-color: #232747;
+}
+
+@media screen and (min-width: 600px) {
+  .content img {
+    max-width: 30em;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .container {
+    max-width: 80%;
+    margin: auto;
+  }
+
+  .content img {
+    max-width: 50%;
+  }
+
+  .choices {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 50% 50%;
+  }
+
+  .questionBtn {
+    width: 99%;
+  }
 }
 </style>
