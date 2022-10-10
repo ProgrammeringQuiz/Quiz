@@ -12,7 +12,7 @@
       "selected": null
     },
     {
-      "question": "What is Vue Vuex",
+      "question": "What is Vue",
       "answer": 2,
       "options": [
         "A Website for learning Vue",
@@ -21,6 +21,17 @@
         "Programming language"
       ],
       "selected": null
+    },
+    {
+      "question": "What is this",
+      "answer": 3,
+      "options": [
+        "A quiz website",
+        "A random box",
+        "A car"
+      ],
+      "selected": null
     }
+
   ]
 }

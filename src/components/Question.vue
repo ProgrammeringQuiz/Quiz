@@ -1,11 +1,19 @@
 <script setup>
+import {ref} from "vue"
+
 const props = defineProps({
   questionData: Object,
-});
-console.log("props", props.questionData);
+  questionSize: ref(),
+  questionNumber: ref(0),
+  questionCompleted: ref(),
+})
+
 </script>
+
 <template>
-  <div class="container">
+
+  <div class="container" v-if="props.questionSize.length > 0 && props.questionCompleted == false">
+    <p class="progress"> {{ props.questionNumber }} / {{ props.questionSize.length }} </p>
     <div class="content">
       <p class="progress">1/2</p>
       <img src="src/assets/placeholder-image.png" alt="placeholder-img" />
@@ -27,6 +35,10 @@ console.log("props", props.questionData);
       <button @click="$emit('previousQuestion')" class="prev">Previous</button>
       <button @click="$emit('nextQuestion')" class="next">Next</button>
     </div>
+  </div>
+  <div v-else>
+    <h2>You have finished all questions!</h2>
+    <p> Your score is 0 / {{ questionSize.length }}</p>
   </div>
 </template>
 

@@ -1,27 +1,37 @@
 <script setup>
 import Question from "../components/Question.vue";
-import quizData from "../../json/quizData.json"
-import {ref} from "vue";
+import { ref } from "vue";
+import userQuiz from "../composables/quizDemo";
 
-const data = quizData;
-console.log(data);
-
+const {  getQuiz } = userQuiz();
+const questionCompleted = ref(false)
 const questionNumber = ref(0)
 
+
 function nextQuestion(){
-  if(questionNumber.value < (data.quizDemo.length-1))
-  questionNumber.value++
+  if(questionNumber.value < getQuiz.value.length -1 ){
+    questionNumber.value++
+  } else {
+    questionCompleted.value = true
+  }
+
 }
 
 function previousQuestion(){
   if(questionNumber.value > 0)
   questionNumber.value--
 }
+
 </script>
 
 <template>
   <main>
-      <Question @previousQuestion = 'previousQuestion'  @nextQuestion = 'nextQuestion' v-bind:questionData= "data.quizDemo[questionNumber]"
+      <Question @previousQuestion = 'previousQuestion'  
+                @nextQuestion = 'nextQuestion' 
+                v-bind:questionData="getQuiz[questionNumber]"
+                v-bind:questionSize= "getQuiz"
+                v-bind:questionNumber= "questionNumber + 1"
+                v-bind:questionCompleted= "questionCompleted"
     />
   </main>
 
