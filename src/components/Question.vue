@@ -10,31 +10,71 @@ const props = defineProps({
   questionCompleted: ref(),
 });
 
-const map = ref(new Map());
-
 let value = ref(0);
 let isDisabled = ref(false);
 const currentIndex = ref(0);
+const reactiveColor = ref("#2d4263");
 
+function clearStorage(x) {
+  if (x) {
+    localStorage.clear();
+  }
+}
+
+function checkQuestion(x) {
+  if (!x) {
+    isQuestionAnswered(props.questionNumber);
+  }
+}
 
 function getQuestionBtnIndex(index) {
-  currentIndex.value = index;
-  if (props.questionData.answer === index) {
-    value.value++;
-    document.getElementById(index.toString()).style.backgroundColor = 'green';
-  } else {
-    document.getElementById(index.toString()).style.backgroundColor = 'red';
+  if (localStorage.getItem(props.questionNumber.toString()) !== null) {
+    index = localStorage.getItem(props.questionNumber).toString();
+    console.log(index);
+    currentIndex.value = index;
   }
-  map.value.set(props.questionNumber, currentIndex.value);
+  if (props.questionData.answer === parseInt(index)) {
+    value.value++;
+    document.querySelector("#btn" + index.toString()).style.backgroundColor =
+      "#48A14D";
+  } else {
+    document.querySelector("#btn" + index.toString()).style.backgroundColor =
+      "#B33F40";
+    document.querySelector(
+      "#btn" + props.questionData.answer
+    ).style.backgroundColor = "#48A14D";
+  }
   isDisabled.value = true;
+  localStorage.setItem(String(props.questionNumber), String(index));
+}
+
+function isQuestionAnswered(x) {
+  let local = localStorage.getItem(x.toString());
+  if (local !== null) {
+    isDisabled.value = true;
+    if (parseInt(local) === props.questionData.answer) {
+      document.querySelector("#btn" + local).style.backgroundColor = "#48A14D";
+    } else {
+      document.querySelector("#btn" + local).style.backgroundColor = "#B33F40";
+      document.querySelector(
+        "#btn" + props.questionData.answer
+      ).style.backgroundColor = "#48A14D";
+    }
+  }
 }
 
 function nextQuestion() {
-  document.getElementById(currentIndex.value).style.backgroundColor = "#2d4263";
   isDisabled.value = false;
+  setTimeout(function () {
+    isQuestionAnswered(props.questionNumber);
+  }, 1);
   emit("nextQuestion");
 }
 function prevQuestion() {
+  isDisabled.value = false;
+  setTimeout(function () {
+    isQuestionAnswered(props.questionNumber);
+  }, 1);
   emit("previousQuestion");
 }
 </script>
@@ -43,9 +83,10 @@ function prevQuestion() {
   <div
     class="container"
     v-if="props.questionSize.length > 0 && props.questionCompleted === false"
+    :ref="() => checkQuestion(props.questionCompleted)"
   >
     <div class="content">
-      <p class="progress" >
+      <p class="progress">
         {{ props.questionNumber }} / {{ props.questionSize.length }}
       </p>
       <img src="src/assets/placeholder-image.png" alt="placeholder-img" />
@@ -58,7 +99,8 @@ function prevQuestion() {
         :key="option.id"
         :disabled="isDisabled"
         class="questionBtn"
-        :id="index"
+        :id="'btn' + index"
+        :style="{ backgroundColor: reactiveColor }"
         @click="getQuestionBtnIndex(index)"
       >
         {{ option }}
@@ -70,7 +112,7 @@ function prevQuestion() {
       <button @click="nextQuestion" class="next">Next</button>
     </div>
   </div>
-  <div v-else>
+  <div v-else :ref="() => clearStorage(props.questionCompleted)">
     <h2>You have finished all questions!</h2>
     <p>Your score is {{ value }} / {{ questionSize.length }}</p>
   </div>
@@ -114,7 +156,6 @@ function prevQuestion() {
   padding: 1em;
   margin-top: 1em;
   width: 100%;
-  background-color: #2d4263;
   border: 0;
   color: white;
   border-radius: 2em;
