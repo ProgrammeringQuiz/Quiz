@@ -138,7 +138,8 @@ function prevQuestion() {
 }
 
 .content img {
-  width: 33em;
+  width: 60em;
+  height: auto;
   align-self: center;
 }
 
@@ -214,7 +215,7 @@ function prevQuestion() {
   }
 
   .content img {
-    max-width: 50%;
+    max-width: 100%;
   }
 
   .choices {
