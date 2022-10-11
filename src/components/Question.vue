@@ -184,6 +184,20 @@ function prevQuestion() {
   background-color: #232747;
 }
 
+.result {
+  max-width: 35em;
+  margin: 5em auto auto;
+  display: flex;
+  background-color: #2d4263;
+  border-radius: 0.5em;
+  padding: 0.5em 0.5em 1em 0.5em;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  color: white;
+  box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+}
+
 @media screen and (min-width: 600px) {
   .content img {
     max-width: 30em;
