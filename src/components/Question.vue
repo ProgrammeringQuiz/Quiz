@@ -81,6 +81,7 @@ function prevQuestion() {
 </script>
 
 <template>
+
   <div
     class="container"
     v-if="props.questionSize.length > 0 && props.questionCompleted === false"
@@ -110,7 +111,8 @@ function prevQuestion() {
 
     <div class="navigation">
       <button @click="prevQuestion" class="prev">Previous</button>
-      <button @click="nextQuestion" class="next">Next</button>
+      <button @click="nextQuestion" class="next" v-if="props.questionNumber == props.questionSize.length"> finish </button>
+      <button @click="nextQuestion" class="next" v-else> next </button>
     </div>
   </div>
   <div v-else :ref="() => clearStorage(props.questionCompleted)">
