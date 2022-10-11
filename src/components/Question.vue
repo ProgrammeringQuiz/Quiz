@@ -22,7 +22,6 @@ function getQuestionBtnIndex(index) {
       {{ props.questionNumber }} / {{ props.questionSize.length }}
     </p>
     <div class="content">
-      <p class="progress">1/2</p>
       <img src="src/assets/placeholder-image.png" alt="placeholder-img" />
       <p>{{ props.questionData.question }}</p>
     </div>
@@ -45,8 +44,10 @@ function getQuestionBtnIndex(index) {
     </div>
   </div>
   <div v-else>
-    <h2>You have finished all questions!</h2>
-    <p>Your score is 0 / {{ questionSize.length }}</p>
+    <div class="result">
+      <h2>You have finished all questions!</h2>
+      <p>Your score is 0 / {{ questionSize.length }}</p>
+    </div>
   </div>
 </template>
 
@@ -115,6 +116,20 @@ function getQuestionBtnIndex(index) {
 .prev:hover,
 .next:hover {
   background-color: #232747;
+}
+
+.result {
+  max-width: 35em;
+  margin: 5em auto auto;
+  display: flex;
+  background-color: #2d4263;
+  border-radius: 0.5em;
+  padding: 0.5em 0.5em 1em 0.5em;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  color: white;
+  box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
 }
 
 @media screen and (min-width: 600px) {
