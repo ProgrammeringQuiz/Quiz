@@ -133,7 +133,7 @@ function prevQuestion() {
 
 .progress {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   color: #c84b31;
 }
 
