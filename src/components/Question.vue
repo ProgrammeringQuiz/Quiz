@@ -23,14 +23,10 @@ function getQuestionBtnIndex(index) {
 </script>
 
 <template>
-  <div
-    class="container"
-    v-if="props.questionSize.length > 0 && props.questionCompleted === false"
-  >
-    <p class="progress">
-      {{ props.questionNumber }} / {{ props.questionSize.length }}
-    </p>
+
+  <div class="container" v-if="props.questionSize.length > 0 && props.questionCompleted == false">
     <div class="content">
+      <p class="progress"> {{ props.questionNumber }} / {{ props.questionSize.length }} </p>
       <img src="src/assets/placeholder-image.png" alt="placeholder-img" />
       <p>{{ props.questionData.question }}</p>
     </div>
@@ -49,7 +45,8 @@ function getQuestionBtnIndex(index) {
 
     <div class="navigation">
       <button @click="$emit('previousQuestion')" class="prev">Previous</button>
-      <button @click="$emit('nextQuestion')" class="next">Next</button>
+      <button @click="$emit('nextQuestion')" class="next" v-if="props.questionNumber == props.questionSize.length"> finish </button>
+      <button @click="$emit('nextQuestion')" class="next" v-else> next </button>
     </div>
   </div>
   <div v-else>
