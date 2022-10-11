@@ -12,23 +12,24 @@
       "selected": null
     },
     {
-      "question": "What is Vue",
-      "answer": 2,
+      "question": "What does JS stand for?",
+      "answer": 1,
       "options": [
-        "A Website for learning Vue",
-        "A kind of fruit",
-        "State management library",
-        "Programming language"
+        "Java",
+        "JavaScript",
+        "Java Scones",
+        "Jasso"
       ],
       "selected": null
     },
     {
       "question": "What is this",
-      "answer": 3,
+      "answer": 0,
       "options": [
         "A quiz website",
         "A random box",
-        "A car"
+        "A car",
+        "question 4"
       ],
       "selected": null
     }

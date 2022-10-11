@@ -2,6 +2,8 @@
 
 import {ref} from "vue";
 
+const emit = defineEmits(["nextQuestion", "previousQuestion"]);
+
 const props = defineProps({
   questionData: Object,
   questionSize: ref(),
@@ -9,24 +11,86 @@ const props = defineProps({
   questionCompleted: ref(),
 });
 
-let value = 0;
+let value = ref(0);
+let isDisabled = ref(false);
+const currentIndex = ref(0);
+const reactiveColor = ref("#2d4263");
+
+function clearStorage(x) {
+  if (x) {
+    localStorage.clear();
+  }
+}
+
+function checkQuestion(x) {
+  if (!x) {
+    isQuestionAnswered(props.questionNumber);
+  }
+}
 
 function getQuestionBtnIndex(index) {
+  if (localStorage.getItem(props.questionNumber.toString()) !== null) {
+    index = localStorage.getItem(props.questionNumber).toString();
     console.log(index);
-    if(props.questionData.answer === index){
-      value++
-      console.log(value)
-    }
-  return value;
+    currentIndex.value = index;
+  }
+  if (props.questionData.answer === parseInt(index)) {
+    value.value++;
+    document.querySelector("#btn" + index.toString()).style.backgroundColor =
+      "#48A14D";
+  } else {
+    document.querySelector("#btn" + index.toString()).style.backgroundColor =
+      "#B33F40";
+    document.querySelector(
+      "#btn" + props.questionData.answer
+    ).style.backgroundColor = "#48A14D";
+  }
+  isDisabled.value = true;
+  localStorage.setItem(String(props.questionNumber), String(index));
+}
 
+function isQuestionAnswered(x) {
+  let local = localStorage.getItem(x.toString());
+  if (local !== null) {
+    isDisabled.value = true;
+    if (parseInt(local) === props.questionData.answer) {
+      document.querySelector("#btn" + local).style.backgroundColor = "#48A14D";
+    } else {
+      document.querySelector("#btn" + local).style.backgroundColor = "#B33F40";
+      document.querySelector(
+        "#btn" + props.questionData.answer
+      ).style.backgroundColor = "#48A14D";
+    }
+  }
+}
+
+function nextQuestion() {
+  isDisabled.value = false;
+  setTimeout(function () {
+    isQuestionAnswered(props.questionNumber);
+  }, 1);
+  emit("nextQuestion");
+}
+function prevQuestion() {
+  isDisabled.value = false;
+  setTimeout(function () {
+    isQuestionAnswered(props.questionNumber);
+  }, 1);
+  emit("previousQuestion");
 }
 </script>
 
 <template>
 
-  <div class="container" v-if="props.questionSize.length > 0 && props.questionCompleted == false">
+  <div
+    class="container"
+    v-if="props.questionSize.length > 0 && props.questionCompleted === false"
+    :ref="() => checkQuestion(props.questionCompleted)"
+  >
     <div class="content">
-      <p class="progress"> {{ props.questionNumber }} / {{ props.questionSize.length }} </p>
+      <p class="progress">
+        {{ props.questionNumber }} / {{ props.questionSize.length }}
+      </p>
       <img src="src/assets/placeholder-image.png" alt="placeholder-img" />
       <p>{{ props.questionData.question }}</p>
     </div>
@@ -34,9 +98,11 @@ function getQuestionBtnIndex(index) {
     <div class="choices">
       <button
         v-for="(option, index) in props.questionData.options"
-        :key="option"
+        :key="option.id"
+        :disabled="isDisabled"
         class="questionBtn"
-        id="btnOne"
+        :id="'btn' + index"
+        :style="{ backgroundColor: reactiveColor }"
         @click="getQuestionBtnIndex(index)"
       >
         {{ option }}
@@ -44,16 +110,14 @@ function getQuestionBtnIndex(index) {
     </div>
 
     <div class="navigation">
-      <button @click="$emit('previousQuestion')" class="prev">Previous</button>
-      <button @click="$emit('nextQuestion')" class="next" v-if="props.questionNumber == props.questionSize.length"> finish </button>
-      <button @click="$emit('nextQuestion')" class="next" v-else> next </button>
+      <button @click="prevQuestion" class="prev">Previous</button>
+      <button @click="nextQuestion" class="next" v-if="props.questionNumber == props.questionSize.length"> finish </button>
+      <button @click="nextQuestion" class="next" v-else> next </button>
     </div>
   </div>
-  <div v-else>
-    <div class="result">
-      <h2>You have finished all questions!</h2>
-      <p>Your score is 0 / {{ questionSize.length }}</p>
-    </div>
+  <div v-else :ref="() => clearStorage(props.questionCompleted)">
+    <h2>You have finished all questions!</h2>
+    <p>Your score is {{ value }} / {{ questionSize.length }}</p>
   </div>
 </template>
 
@@ -95,7 +159,6 @@ function getQuestionBtnIndex(index) {
   padding: 1em;
   margin-top: 1em;
   width: 100%;
-  background-color: #2d4263;
   border: 0;
   color: white;
   border-radius: 2em;
