@@ -115,7 +115,7 @@ function prevQuestion() {
       <button @click="nextQuestion" class="next" v-else> next </button>
     </div>
   </div>
-  <div v-else :ref="() => clearStorage(props.questionCompleted)">
+  <div v-else class="result" :ref="() => clearStorage(props.questionCompleted)">
     <h2>You have finished all questions!</h2>
     <p>Your score is {{ value }} / {{ questionSize.length }}</p>
   </div>
