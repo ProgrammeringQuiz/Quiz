@@ -1,5 +1,6 @@
 <script setup>
-import { ref } from "vue";
+
+import {ref} from "vue";
 
 const props = defineProps({
   questionData: Object,
@@ -8,8 +9,16 @@ const props = defineProps({
   questionCompleted: ref(),
 });
 
+let value = 0;
+
 function getQuestionBtnIndex(index) {
-  console.log(index);
+    console.log(index);
+    if(props.questionData.answer === index){
+      value++
+      console.log(value)
+    }
+  return value;
+
 }
 </script>
 
