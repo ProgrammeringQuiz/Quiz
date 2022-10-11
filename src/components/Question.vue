@@ -9,25 +9,28 @@ const props = defineProps({
   questionNumber: ref(0),
   questionCompleted: ref(),
 });
+
+const map = ref(new Map());
+
 let value = ref(0);
 let isDisabled = ref(false);
-const testIndex = ref(0);
+const currentIndex = ref(0);
+
 
 function getQuestionBtnIndex(index) {
-  testIndex.value = index;
+  currentIndex.value = index;
   if (props.questionData.answer === index) {
     value.value++;
     document.getElementById(index.toString()).style.backgroundColor = 'green';
-    isDisabled.value = true;
   } else {
     document.getElementById(index.toString()).style.backgroundColor = 'red';
-    isDisabled.value = true;
   }
+  map.value.set(props.questionNumber, currentIndex.value);
+  isDisabled.value = true;
 }
 
 function nextQuestion() {
-  console.log(props.questionSize.length);
-  document.getElementById(testIndex.value).style.backgroundColor = "#2d4263";
+  document.getElementById(currentIndex.value).style.backgroundColor = "#2d4263";
   isDisabled.value = false;
   emit("nextQuestion");
 }
@@ -42,7 +45,7 @@ function prevQuestion() {
     v-if="props.questionSize.length > 0 && props.questionCompleted === false"
   >
     <div class="content">
-      <p class="progress">
+      <p class="progress" >
         {{ props.questionNumber }} / {{ props.questionSize.length }}
       </p>
       <img src="src/assets/placeholder-image.png" alt="placeholder-img" />
