@@ -92,7 +92,7 @@ function prevQuestion() {
         {{ props.questionNumber }} / {{ props.questionSize.length }}
       </p>
       <img src="src/assets/placeholder-image.png" alt="placeholder-img" />
-      <p>{{ props.questionData.question }}</p>
+      <h1>{{ props.questionData.question }}</h1>
     </div>
 
     <div class="choices">
@@ -149,6 +149,15 @@ function prevQuestion() {
   text-align: center;
   color: #c84b31;
 }
+
+.content h1 {
+  font-size: 2.2em;
+  margin: 1em;
+  padding: 0;
+  text-align: center;
+  color: #c84b31;
+}
+
 .choices {
   margin: 0.3em;
 }
