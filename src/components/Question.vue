@@ -15,6 +15,9 @@ let value = ref(0);
 let isDisabled = ref(false);
 const currentIndex = ref(0);
 const reactiveColor = ref("#2d4263");
+let indexValue = ref(0)
+let iconCorrect = ref(false);
+const iconWrong = ref(false);
 
 function clearStorage(x) {
   if (x) {
@@ -29,9 +32,9 @@ function checkQuestion(x) {
 }
 
 function getQuestionBtnIndex(index) {
+  indexValue.value = index;
   if (localStorage.getItem(props.questionNumber.toString()) !== null) {
     index = localStorage.getItem(props.questionNumber).toString();
-    console.log(index);
     currentIndex.value = index;
   }
   if (props.questionData.answer === parseInt(index)) {
@@ -44,6 +47,7 @@ function getQuestionBtnIndex(index) {
     document.querySelector(
       "#btn" + props.questionData.answer
     ).style.backgroundColor = "#48A14D";
+
   }
   isDisabled.value = true;
   localStorage.setItem(String(props.questionNumber), String(index));
@@ -55,17 +59,21 @@ function isQuestionAnswered(x) {
     isDisabled.value = true;
     if (parseInt(local) === props.questionData.answer) {
       document.querySelector("#btn" + local).style.backgroundColor = "#48A14D";
+      iconCorrect.value = true;
     } else {
       document.querySelector("#btn" + local).style.backgroundColor = "#B33F40";
       document.querySelector(
         "#btn" + props.questionData.answer
       ).style.backgroundColor = "#48A14D";
+      iconWrong.value = true;
     }
   }
 }
 
 function nextQuestion() {
   isDisabled.value = false;
+  iconCorrect.value = false;
+  iconWrong.value = false;
   setTimeout(function () {
     isQuestionAnswered(props.questionNumber);
   }, 1);
@@ -73,6 +81,7 @@ function nextQuestion() {
 }
 function prevQuestion() {
   isDisabled.value = false;
+  iconCorrect.value = false;
   setTimeout(function () {
     isQuestionAnswered(props.questionNumber);
   }, 1);
@@ -103,9 +112,12 @@ function prevQuestion() {
         class="questionBtn"
         :id="'btn' + index"
         :style="{ backgroundColor: reactiveColor }"
+        alt="button"
         @click="getQuestionBtnIndex(index)"
       >
         {{ option }}
+        <img class="iconImg" v-if="iconCorrect && index === props.questionData.answer" src="src/assets/correct.png">
+        <img class="iconImg" v-if="iconWrong && index == indexValue" src="src/assets/cross.png">
       </button>
     </div>
 
@@ -122,6 +134,11 @@ function prevQuestion() {
 </template>
 
 <style scoped>
+
+.iconImg {
+  width: 1.5em;
+}
+
 .container {
   font-family: Monospace, sans-serif;
 }
@@ -155,7 +172,8 @@ function prevQuestion() {
 
 .questionBtn {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
   padding: 1em;
   margin-top: 1em;
   width: 100%;
