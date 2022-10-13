@@ -19,6 +19,9 @@ let show = ref(false);
       <Transition>
         <nav v-if="show" id="mobile">
           <RouterLink class="route" @click="show = !show" to="/"
+          >Home</RouterLink
+          >
+          <RouterLink class="route" @click="show = !show" to="/quizDemo"
             >Quiz</RouterLink
           >
           <RouterLink class="route" @click="show = !show" to="/about"
@@ -28,7 +31,9 @@ let show = ref(false);
       </Transition>
 
       <nav id="desktop">
-        <RouterLink class="route" to="/">Quiz</RouterLink>
+        <RouterLink class="route" to="/">Home</RouterLink>
+
+        <RouterLink class="route" to="/quizDemo">Quiz</RouterLink>
 
         <RouterLink class="route" to="/about">Profile</RouterLink>
       </nav>
