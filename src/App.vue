@@ -21,6 +21,10 @@ let show = ref(false);
           <RouterLink class="route" @click="show = !show" to="/"
           >Home</RouterLink
           >
+          <RouterLink class="route" @click="show = !show" to="/quizOptions"
+            >Options</RouterLink
+          >
+          >
           <RouterLink class="route" @click="show = !show" to="/quizDemo"
             >Quiz</RouterLink
           >
@@ -32,6 +36,8 @@ let show = ref(false);
 
       <nav id="desktop">
         <RouterLink class="route" to="/">Home</RouterLink>
+
+        <RouterLink class="route" to="/quizOptions">Options</RouterLink>
 
         <RouterLink class="route" to="/quizDemo">Quiz</RouterLink>
 
