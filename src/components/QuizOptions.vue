@@ -23,7 +23,7 @@ const quizData = languageData.quizLanguage[props.languageIndex].quiz;
   </div>
 </template>
 
-<style>
+<style scoped>
 
 .pageText {
   font-size: 1.2em;
@@ -63,6 +63,7 @@ h2 {
 }
 
 @media screen and (max-width: 1024px) {
+
   .java, .javaScript, .cSharp {
     margin-top: 2.5em;
   }
