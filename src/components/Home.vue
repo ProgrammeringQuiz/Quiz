@@ -1,16 +1,8 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
 import languageData from "../../json/quizLanguage.json"
-import {ref} from "vue";
 
 const quizLanguage = languageData.quizLanguage[0].language;
-
-let languageIndex = ref(0);
-
-function changePage(index) {
-  index = index + 1;
-  localStorage.setItem(String("indexValue"), String(index) )
-}
 
 </script>
 
@@ -20,10 +12,10 @@ function changePage(index) {
       <h1>Choose the language you want to have a quiz on: </h1>
     </div>
 
-    <div @click="changePage(index)" v-for="(language, index) in quizLanguage"
+    <div v-for="(language, index) in quizLanguage"
          :key="language.id"
          :id="'language' + index">
-            <RouterLink  class="quizLanguage"  to="/quizOptions" v-bind:languageIndex="languageIndex">
+            <RouterLink  class="quizLanguage"  :to="{name:`quizOptions`, params: {name:language, id:index + 1}}">
               {{ language }}
             </RouterLink>
     </div>
@@ -56,10 +48,6 @@ function changePage(index) {
   text-align: center;
   color: white;
   box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
-}
-
-h2 {
-
 }
 
 .home {

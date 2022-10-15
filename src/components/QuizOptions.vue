@@ -1,13 +1,9 @@
 <script setup>
-import { RouterLink, RouterView } from "vue-router";
+import { RouterLink, RouterView, useRoute } from "vue-router";
 import quizData from "../../json/quizLanguage.json"
 
-let indexValue = localStorage.getItem("indexValue")
-
-console.log("Localstorage: ", indexValue)
-
-const quizLanguage =
-    quizData.quizLanguage[indexValue].quiz;
+const id = useRoute().params.id
+const quizLanguage = quizData.quizLanguage[id].quiz;
 
 </script>
 
@@ -26,10 +22,6 @@ const quizLanguage =
 
   <RouterView />
 </template>
-
-
-
-
 
 <style scoped>
 

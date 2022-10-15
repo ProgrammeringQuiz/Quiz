@@ -3,6 +3,7 @@ import { RouterLink, RouterView } from "vue-router";
 import { ref } from "vue";
 
 let show = ref(false);
+
 </script>
 
 <template>
@@ -36,10 +37,6 @@ let show = ref(false);
 
       <nav id="desktop">
         <RouterLink class="route" to="/">Home</RouterLink>
-
-        <RouterLink class="route" to="/quizOptions">Options</RouterLink>
-
-        <RouterLink class="route" to="/quizDemo">Quiz</RouterLink>
 
         <RouterLink class="route" to="/about">Profile</RouterLink>
       </nav>
