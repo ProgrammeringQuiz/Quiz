@@ -1,42 +1,36 @@
 <script setup>
 import languageData from "../../json/quizLanguage.json";
-import QuizOption from "./QuizOptions.vue";
 import { ref } from "vue";
 
 const quizLanguage = languageData.quizLanguage[0].language;
 
-let templateLanguage = ref(true);
-let templateOptions = ref(false);
 let languageIndex = ref(0);
 
 function changePage(index) {
-  templateLanguage.value = false;
-  templateOptions.value = true;
-
   languageIndex.value = index;
 }
 </script>
 
 <template>
-  <div class="home" v-if="templateLanguage">
+  <div class="home">
     <div class="pageText">
       <h1>Choose the language you want to have a quiz on:</h1>
     </div>
     <div class="content">
-      <div
-        @click="changePage(index)"
-        class="quizLanguage"
-        v-for="(language, index) in quizLanguage"
-        :key="language.id"
-        :id="'language' + index"
+      <RouterLink
+          to="/quizOptions"
+          @click="changePage(index)"
+          class="quizLanguage"
+          v-for="(language, index) in quizLanguage"
+          :key="language.id"
+          :id="'language' + index"
+
       >
         <h2>{{ language }}</h2>
-      </div>
+      </RouterLink>
     </div>
+    <RouterView />
   </div>
-  <main v-if="templateOptions">
-    <QuizOption v-bind:languageIndex="languageIndex + 1" />
-  </main>
 </template>
 
 <style scoped>

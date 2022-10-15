@@ -6,7 +6,7 @@ const props = defineProps({
   languageIndex: ref(1),
 });
 
-const quizData = languageData.quizLanguage[props.languageIndex].quiz;
+const quizData = languageData.quizLanguage[1].quiz;
 </script>
 
 <template>
@@ -16,10 +16,10 @@ const quizData = languageData.quizLanguage[props.languageIndex].quiz;
     </div>
     <div class="content">
       <div
-        class="quizLanguage"
-        v-for="(quiz, index) in quizData"
-        :key="quiz.id"
-        :id="'quiz' + index"
+          class="quizLanguage"
+          v-for="(quiz, index) in quizData"
+          :key="quiz.id"
+          :id="'quiz' + index"
       >
         <h2>{{ quiz }}</h2>
       </div>
