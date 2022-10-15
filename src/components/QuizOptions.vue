@@ -1,30 +1,33 @@
 <script setup>
-import languageData from "../../json/quizLanguage.json"
-import {ref} from "vue";
+import languageData from "../../json/quizLanguage.json";
+import { ref } from "vue";
 
 const props = defineProps({
-  languageIndex: ref(1)
-})
+  languageIndex: ref(1),
+});
 
 const quizData = languageData.quizLanguage[props.languageIndex].quiz;
-
 </script>
 
 <template>
   <div class="home">
     <div class="pageText">
-      <h1>Choose your quiz: </h1>
+      <h1>Choose your quiz:</h1>
     </div>
-    <div class="quizLanguage" v-for="(quiz, index) in quizData"
-         :key="quiz.id"
-         :id="'quiz' + index">
-      <h2>{{ quiz }}</h2>
+    <div class="content">
+      <div
+        class="quizLanguage"
+        v-for="(quiz, index) in quizData"
+        :key="quiz.id"
+        :id="'quiz' + index"
+      >
+        <h2>{{ quiz }}</h2>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-
 .pageText {
   font-size: 1.2em;
   margin: 1em;
@@ -47,26 +50,35 @@ const quizData = languageData.quizLanguage[props.languageIndex].quiz;
   box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
 }
 
+.quizLanguage:hover {
+  background-color: #232747;
+}
+
 h2 {
   font-size: 2.2em;
 }
 
 .home {
   margin: 1em;
-
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (min-width: 1024px) {
   .pageText {
+    margin-top: 6em;
     font-size: 0.9em;
   }
-}
+  .content {
+    max-width: 60em;
+    margin: 5em auto auto auto;
+    display: flex;
+    flex-wrap: wrap;
+  }
 
-@media screen and (max-width: 1024px) {
-
-  .java, .javaScript, .cSharp {
-    margin-top: 2.5em;
+  .quizLanguage {
+    color: white;
+    margin: 1em;
+    padding: 1em;
+    width: 15em;
   }
 }
-
 </style>
