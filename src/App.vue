@@ -13,7 +13,7 @@ let show = ref(false);
   <header>
     <div class="wrapper">
       <div class="hamburger">
-        <h3 class="quiz">Java Loops-Quiz</h3>
+        <h3 class="quiz">Programming - Quiz</h3>
         <i class="fa fa-bars fa-3x" @click="show = !show"></i>
       </div>
       <Transition>
@@ -28,7 +28,7 @@ let show = ref(false);
           <RouterLink class="route" @click="show = !show" to="/quizDemo"
             >Quiz</RouterLink
           >
-          <RouterLink class="route" @click="show = !show" to="/about"
+          <RouterLink class="route" @click="show = !show" to="/profile"
             >Profile</RouterLink
           >
         </nav>
@@ -41,7 +41,7 @@ let show = ref(false);
 
         <RouterLink class="route" to="/quizDemo">Quiz</RouterLink>
 
-        <RouterLink class="route" to="/about">Profile</RouterLink>
+        <RouterLink class="route" to="/profile">Profile</RouterLink>
       </nav>
     </div>
   </header>
