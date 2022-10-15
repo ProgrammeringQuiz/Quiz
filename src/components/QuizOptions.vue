@@ -1,13 +1,12 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
 import quizData from "../../json/quizLanguage.json"
-import {computed} from "vue";
 
 let indexValue = localStorage.getItem("indexValue")
 
 console.log("Localstorage: ", indexValue)
 
-const quizLanguage = computed()
+const quizLanguage =
     quizData.quizLanguage[indexValue].quiz;
 
 </script>
