@@ -60,11 +60,10 @@ function changePage(index) {
   text-align: center;
   color: white;
   box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
-  cursor:pointer;
+  cursor: pointer;
 }
 
-
-.quizLanguage:hover{
+.quizLanguage:hover {
   background-color: #232747;
 }
 
@@ -81,9 +80,6 @@ h2 {
     margin-top: 6em;
     font-size: 0.9em;
   }
-}
-
-@media screen and (min-width: 1024px) {
   .content {
     max-width: 60em;
     margin: 5em auto auto auto;
