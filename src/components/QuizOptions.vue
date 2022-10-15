@@ -1,29 +1,38 @@
 <script setup>
-import languageData from "../../json/quizLanguage.json"
-import {ref} from "vue";
+import { RouterLink, RouterView } from "vue-router";
+import quizData from "../../json/quizLanguage.json"
+import {computed} from "vue";
 
-const props = defineProps({
-  languageIndex: ref(1)
-})
+let indexValue = localStorage.getItem("indexValue")
 
-const quizData = languageData.quizLanguage[props.languageIndex].quiz;
+console.log("Localstorage: ", indexValue)
+
+const quizLanguage = computed()
+    quizData.quizLanguage[indexValue].quiz;
 
 </script>
 
-<template>
-  <div class="home">
+<template >
+  <div class="quizOption">
     <div class="pageText">
-      <h1>Choose your quiz: </h1>
+      <h1>Choose the language you want to have a quiz on: </h1>
     </div>
-    <div class="quizLanguage" v-for="(quiz, index) in quizData"
+
+    <div v-for="(quiz, index) in quizLanguage"
          :key="quiz.id"
          :id="'quiz' + index">
-      <h2>{{ quiz }}</h2>
+      <RouterLink class="quiz"  to="/quizDemo"> {{ quiz }} </RouterLink>
     </div>
   </div>
+
+  <RouterView />
 </template>
 
-<style>
+
+
+
+
+<style scoped>
 
 .pageText {
   font-size: 1.2em;
@@ -33,9 +42,11 @@ const quizData = languageData.quizLanguage[props.languageIndex].quiz;
   color: #c84b31;
 }
 
-.quizLanguage {
-  max-width: 35em;
-  margin: 5em auto auto auto;
+.quiz {
+  font-size: 2.2em;
+  width: 80vw;
+  height: 10vh;
+  margin-top: 2em;
   display: flex;
   background-color: #2d4263;
   border-radius: 0.5em;
@@ -47,11 +58,11 @@ const quizData = languageData.quizLanguage[props.languageIndex].quiz;
   box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
 }
 
-h2 {
-  font-size: 2.2em;
-}
-
-.home {
+.quizOption {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  flex-grow: 1;
   margin: 1em;
 
 }
@@ -59,6 +70,12 @@ h2 {
 @media screen and (max-width: 1024px) {
   .pageText {
     font-size: 0.9em;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .quiz {
+    width: 50vw;
   }
 }
 
