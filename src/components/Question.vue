@@ -202,7 +202,7 @@ function prevQuestion() {
   box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (max-width: 600px) {
   .content img {
     max-width: 30em;
   }
