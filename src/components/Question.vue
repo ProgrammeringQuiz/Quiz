@@ -15,6 +15,9 @@ let isDisabled = ref(false);
 const currentIndex = ref(0);
 const reactiveColor = ref("#2d4263");
 
+const answerStatus = ref(0)
+
+
 function clearStorage(x) {
   if (x) {
     localStorage.clear();
@@ -35,11 +38,11 @@ function getQuestionBtnIndex(index) {
   }
   if (props.questionData.answer === parseInt(index)) {
     value.value++;
-    document.querySelector("#btn" + index.toString()).style.backgroundColor =
-      "#48A14D";
+    // document.querySelector("#btn" + index.toString()).style.backgroundColor =
+    //   "#48A14D";
   } else {
-    document.querySelector("#btn" + index.toString()).style.backgroundColor =
-      "#B33F40";
+    // document.querySelector("#btn" + index.toString()).style.backgroundColor =
+    //   "#B33F40";
     document.querySelector(
       "#btn" + props.questionData.answer
     ).style.backgroundColor = "#48A14D";
@@ -53,12 +56,12 @@ function isQuestionAnswered(x) {
   if (local !== null) {
     isDisabled.value = true;
     if (parseInt(local) === props.questionData.answer) {
-      document.querySelector("#btn" + local).style.backgroundColor = "#48A14D";
+      // document.querySelector("#btn" + local).style.backgroundColor = "#48A14D";
     } else {
-      document.querySelector("#btn" + local).style.backgroundColor = "#B33F40";
-      document.querySelector(
-        "#btn" + props.questionData.answer
-      ).style.backgroundColor = "#48A14D";
+    //   document.querySelector("#btn" + local).style.backgroundColor = "#B33F40";
+    //   document.querySelector(
+    //     "#btn" + props.questionData.answer
+    //   ).style.backgroundColor = "#48A14D";
     }
   }
 }
@@ -101,7 +104,7 @@ function prevQuestion() {
         :disabled="isDisabled"
         class="questionBtn"
         :id="'btn' + index"
-        :style="{ backgroundColor: reactiveColor }"
+        :class = "{buttonFailed: answerStatus === 1, buttonSuccess:answerStatus === 2 }"
         @click="getQuestionBtnIndex(index)"
       >
         {{ option }}
@@ -162,6 +165,16 @@ function prevQuestion() {
   color: white;
   border-radius: 2em;
   cursor: pointer;
+  background-color: #2d4263;
+}
+
+.buttonFailed {
+  background-color: red;
+
+}
+
+.buttonSuccess {
+  background-color: green;
 }
 
 .navigation {

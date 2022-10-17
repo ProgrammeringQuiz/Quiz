@@ -22,7 +22,8 @@ let show = ref(false);
             >Quiz</RouterLink
           >
           <RouterLink class="route" @click="show = !show" to="/about"
-            >Profile</RouterLink
+            >Profile
+          </RouterLink
           >
         </nav>
       </Transition>
