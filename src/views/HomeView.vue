@@ -1,34 +1,10 @@
 <script setup>
-import Question from "../components/Question.vue";
-import { ref } from "vue";
-import userQuiz from "../composables/quizDemo";
-
-const { getQuiz } = userQuiz();
-const questionCompleted = ref(false);
-const questionNumber = ref(0);
-
-function nextQuestion() {
-  if (questionNumber.value < getQuiz.value.length - 1) {
-    questionNumber.value++;
-  } else {
-    questionCompleted.value = true;
-  }
-}
-
-function previousQuestion() {
-  if (questionNumber.value > 0) questionNumber.value--;
-}
+import Home from "../components/Home.vue";
 </script>
 
 <template>
   <main>
-    <Question
-      @previousQuestion="previousQuestion"
-      @nextQuestion="nextQuestion"
-      v-bind:questionData="getQuiz[questionNumber]"
-      v-bind:questionSize="getQuiz"
-      v-bind:questionNumber="questionNumber + 1"
-      v-bind:questionCompleted="questionCompleted"
-    />
+    <Home />
   </main>
 </template>
+
