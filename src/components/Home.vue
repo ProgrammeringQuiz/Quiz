@@ -12,12 +12,13 @@ const quizLanguage = languageData.quizLanguage[0].language;
     </div>
     <div class="content">
       <div
+          class="quizLanguage"
         v-for="(language, index) in quizLanguage"
         :key="language.id"
         :id="'language' + index"
       >
         <RouterLink
-          class="quizLanguage"
+          class="languageText"
           :to="{
             name: `quizOptions`,
             params: { name: language, id: index + 1 },
@@ -41,15 +42,18 @@ const quizLanguage = languageData.quizLanguage[0].language;
   color: #c84b31;
 }
 
-.quizLanguage {
-  max-width: 35em;
-  margin: 5em auto auto auto;
+.content{
   display: flex;
+  flex-direction: column;
+}
+.quizLanguage {
+  font-size: 2em;
+  width: 50vw;
+  text-decoration: none;
+  margin: 1em auto auto auto;
   background-color: #2d4263;
   border-radius: 0.5em;
-  padding: 0.5em 0.5em 1em 0.5em;
-  justify-content: center;
-  flex-direction: column;
+  padding: 1.5em;
   text-align: center;
   color: white;
   box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
@@ -58,6 +62,11 @@ const quizLanguage = languageData.quizLanguage[0].language;
 
 .quizLanguage:hover {
   background-color: #232747;
+}
+
+.languageText{
+  text-decoration: none;
+  color:white;
 }
 
 .home {
@@ -70,22 +79,23 @@ const quizLanguage = languageData.quizLanguage[0].language;
 
 @media screen and (min-width: 1024px) {
   .pageText {
-    margin-top: 6em;
+    margin-top: 2em;
     font-size: 0.9em;
   }
 
   .content {
     max-width: 60em;
-    margin: 5em auto auto auto;
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
   }
 
   .quizLanguage {
     color: white;
-    margin: 1em;
+    margin: 0.5em;
     padding: 1em;
-    width: 15em;
+    width: 7em;
+
   }
 }
 </style>
