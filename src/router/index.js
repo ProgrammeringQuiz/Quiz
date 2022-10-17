@@ -8,7 +8,7 @@ const router = createRouter({
   routes: [
     {
       path: "/",
-      name: "home",
+      name: "Programming Quiz",
       component: HomeView,
     },
     {
@@ -22,8 +22,8 @@ const router = createRouter({
       component: QuizDemo,
     },
     {
-      path: "/about",
-      name: "about",
+      path: "/profile",
+      name: "Profile",
       component: () => import("../views/AboutView.vue"),
     },
   ],

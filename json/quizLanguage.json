@@ -31,6 +31,14 @@
         "Loops",
         "Arrays"
       ]
+    },
+    {
+      "quiz": [
+        "PythonVar",
+        "TDD",
+        "Random",
+        "Test"
+      ]
     }
   ]
 }
