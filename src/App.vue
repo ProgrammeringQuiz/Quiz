@@ -29,7 +29,7 @@ let show = ref(false);
           <RouterLink class="route" @click="show = !show" to="/quizDemo"
             >Quiz</RouterLink
           >
-          <RouterLink class="route" @click="show = !show" to="/profile"
+          <RouterLink class="route" @click="show = !show" to="/about"
             >Profile</RouterLink
           >
         </nav>
