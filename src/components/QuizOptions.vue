@@ -4,12 +4,12 @@ import quizData from "../../json/quizLanguage.json"
 
 const id = useRoute().params.id
 const quizLanguage = quizData.quizLanguage[id].quiz;
-
 </script>
 
 <template >
   <div class="quizOption">
     <div class="pageText">
+
       <h1>Choose the language you want to have a quiz on: </h1>
     </div>
 
@@ -24,7 +24,6 @@ const quizLanguage = quizData.quizLanguage[id].quiz;
 </template>
 
 <style scoped>
-
 .pageText {
   font-size: 1.2em;
   margin: 1em;
@@ -49,31 +48,35 @@ const quizLanguage = quizData.quizLanguage[id].quiz;
   box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
 }
 
-.quizOption {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  flex-grow: 1;
-  margin: 1em;
 
+.quizLanguage:hover {
+  background-color: #232747;
 }
 
-@media screen and (max-width: 1024px) {
-  .pageText {
-    font-size: 0.9em;
-  }
+h2 {
+  font-size: 2.2em;
+}
+
+.home {
+  margin: 1em;
 }
 
 @media screen and (min-width: 1024px) {
-  .quiz {
-    width: 50vw;
+  .pageText {
+    margin-top: 6em;
+    font-size: 0.9em;
   }
-}
-
-@media screen and (max-width: 1024px) {
-  .java, .javaScript, .cSharp {
-    margin-top: 2.5em;
+  .content {
+    max-width: 60em;
+    margin: 5em auto auto auto;
+    display: flex;
+    flex-wrap: wrap;
   }
-}
 
+  .quizLanguage {
+    color: white;
+    margin: 1em;
+    padding: 1em;
+    width: 15em;
+}
 </style>

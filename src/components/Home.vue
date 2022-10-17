@@ -1,4 +1,5 @@
 <script setup>
+
 import { RouterLink, RouterView } from "vue-router";
 import languageData from "../../json/quizLanguage.json"
 
@@ -9,9 +10,8 @@ const quizLanguage = languageData.quizLanguage[0].language;
 <template >
   <div class="home">
     <div class="pageText">
-      <h1>Choose the language you want to have a quiz on: </h1>
+      <h1>Choose the language you want to have a quiz on:</h1>
     </div>
-
     <div v-for="(language, index) in quizLanguage"
          :key="language.id"
          :id="'language' + index">
@@ -25,7 +25,6 @@ const quizLanguage = languageData.quizLanguage[0].language;
 </template>
 
 <style scoped>
-
 .pageText {
   font-size: 1.2em;
   margin: 1em;
@@ -48,6 +47,11 @@ const quizLanguage = languageData.quizLanguage[0].language;
   text-align: center;
   color: white;
   box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+  cursor: pointer;
+}
+
+.quizLanguage:hover {
+  background-color: #232747;
 }
 
 .home {
@@ -56,25 +60,26 @@ const quizLanguage = languageData.quizLanguage[0].language;
   flex-direction: column;
   flex-grow: 1;
   margin: 1em;
-
-}
-
-@media screen and (max-width: 1024px) {
-  .pageText {
-    font-size: 0.9em;
-  }
 }
 
 @media screen and (min-width: 1024px) {
+  .pageText {
+    margin-top: 6em;
+    font-size: 0.9em;
+  }
+  .content {
+    max-width: 60em;
+    margin: 5em auto auto auto;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+
   .quizLanguage {
-    width: 50vw;
-  }
-}
+    color: white;
+    margin: 1em;
+    padding: 1em;
+    width: 15em;
 
-@media screen and (max-width: 1024px) {
-  .java, .javaScript, .cSharp {
-    margin-top: 2.5em;
-  }
 }
-
 </style>

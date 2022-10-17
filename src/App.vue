@@ -14,7 +14,7 @@ let show = ref(false);
   <header>
     <div class="wrapper">
       <div class="hamburger">
-        <h3 class="quiz">Java Loops-Quiz</h3>
+        <h3 class="quiz">Programming - Quiz</h3>
         <i class="fa fa-bars fa-3x" @click="show = !show"></i>
       </div>
       <Transition>
