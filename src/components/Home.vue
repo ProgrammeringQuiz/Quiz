@@ -42,10 +42,8 @@ const quizLanguage = languageData.quizLanguage[0].language;
 }
 
 .quizLanguage {
-  font-size: 2.2em;
-  width: 80vw;
-  height: 10vh;
-  margin-top: 2em;
+  max-width: 35em;
+  margin: 5em auto auto auto;
   display: flex;
   background-color: #2d4263;
   border-radius: 0.5em;
