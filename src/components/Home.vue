@@ -12,7 +12,7 @@ const quizLanguage = languageData.quizLanguage[0].language;
     </div>
     <div class="content">
       <div
-          class="quizLanguage"
+        class="quizLanguage"
         v-for="(language, index) in quizLanguage"
         :key="language.id"
         :id="'language' + index"
@@ -42,7 +42,7 @@ const quizLanguage = languageData.quizLanguage[0].language;
   color: #c84b31;
 }
 
-.content{
+.content {
   display: flex;
   flex-direction: column;
 }
@@ -64,9 +64,9 @@ const quizLanguage = languageData.quizLanguage[0].language;
   background-color: #232747;
 }
 
-.languageText{
+.languageText {
   text-decoration: none;
-  color:white;
+  color: white;
 }
 
 .home {
@@ -95,7 +95,6 @@ const quizLanguage = languageData.quizLanguage[0].language;
     margin: 0.5em;
     padding: 1em;
     width: 7em;
-
   }
 }
 </style>
