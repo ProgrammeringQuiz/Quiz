@@ -1,42 +1,27 @@
 <script setup>
-import languageData from "../../json/quizLanguage.json";
-import QuizOption from "./QuizOptions.vue";
-import { ref } from "vue";
+
+import { RouterLink, RouterView } from "vue-router";
+import languageData from "../../json/quizLanguage.json"
 
 const quizLanguage = languageData.quizLanguage[0].language;
 
-let templateLanguage = ref(true);
-let templateOptions = ref(false);
-let languageIndex = ref(0);
-
-function changePage(index) {
-  templateLanguage.value = false;
-  templateOptions.value = true;
-
-  languageIndex.value = index;
-}
 </script>
 
-<template>
-  <div class="home" v-if="templateLanguage">
+<template >
+  <div class="home">
     <div class="pageText">
       <h1>Choose the language you want to have a quiz on:</h1>
     </div>
-    <div class="content">
-      <div
-        @click="changePage(index)"
-        class="quizLanguage"
-        v-for="(language, index) in quizLanguage"
-        :key="language.id"
-        :id="'language' + index"
-      >
-        <h2>{{ language }}</h2>
-      </div>
+    <div v-for="(language, index) in quizLanguage"
+         :key="language.id"
+         :id="'language' + index">
+            <RouterLink  class="quizLanguage"  :to="{name:`quizOptions`, params: {name:language, id:index + 1}}">
+              {{ language }}
+            </RouterLink>
     </div>
   </div>
-  <main v-if="templateOptions">
-    <QuizOption v-bind:languageIndex="languageIndex + 1" />
-  </main>
+
+  <RouterView />
 </template>
 
 <style scoped>
@@ -49,8 +34,10 @@ function changePage(index) {
 }
 
 .quizLanguage {
-  max-width: 35em;
-  margin: 5em auto auto auto;
+  font-size: 2.2em;
+  width: 80vw;
+  height: 10vh;
+  margin-top: 2em;
   display: flex;
   background-color: #2d4263;
   border-radius: 0.5em;
@@ -67,11 +54,11 @@ function changePage(index) {
   background-color: #232747;
 }
 
-h2 {
-  font-size: 2.2em;
-}
-
 .home {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  flex-grow: 1;
   margin: 1em;
 }
 
@@ -87,11 +74,12 @@ h2 {
     flex-wrap: wrap;
   }
 
+
   .quizLanguage {
     color: white;
     margin: 1em;
     padding: 1em;
     width: 15em;
-  }
+
 }
 </style>
