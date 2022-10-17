@@ -1,23 +1,31 @@
 <script setup>
-
 import { RouterLink, RouterView } from "vue-router";
-import languageData from "../../json/quizLanguage.json"
+import languageData from "../../json/quizLanguage.json";
 
 const quizLanguage = languageData.quizLanguage[0].language;
-
 </script>
 
-<template >
+<template>
   <div class="home">
     <div class="pageText">
       <h1>Choose the language you want to have a quiz on:</h1>
     </div>
-    <div v-for="(language, index) in quizLanguage"
-         :key="language.id"
-         :id="'language' + index">
-            <RouterLink  class="quizLanguage"  :to="{name:`quizOptions`, params: {name:language, id:index + 1}}">
-              {{ language }}
-            </RouterLink>
+    <div class="content">
+      <div
+        v-for="(language, index) in quizLanguage"
+        :key="language.id"
+        :id="'language' + index"
+      >
+        <RouterLink
+          class="quizLanguage"
+          :to="{
+            name: `quizOptions`,
+            params: { name: language, id: index + 1 },
+          }"
+        >
+          {{ language }}
+        </RouterLink>
+      </div>
     </div>
   </div>
 
@@ -67,6 +75,7 @@ const quizLanguage = languageData.quizLanguage[0].language;
     margin-top: 6em;
     font-size: 0.9em;
   }
+
   .content {
     max-width: 60em;
     margin: 5em auto auto auto;
@@ -74,12 +83,11 @@ const quizLanguage = languageData.quizLanguage[0].language;
     flex-wrap: wrap;
   }
 
-
   .quizLanguage {
     color: white;
     margin: 1em;
     padding: 1em;
     width: 15em;
-
+  }
 }
 </style>

@@ -1,22 +1,25 @@
 <script setup>
 import { RouterLink, RouterView, useRoute } from "vue-router";
-import quizData from "../../json/quizLanguage.json"
+import quizData from "../../json/quizLanguage.json";
 
-const id = useRoute().params.id
+const id = useRoute().params.id;
 const quizLanguage = quizData.quizLanguage[id].quiz;
 </script>
 
-<template >
+<template>
   <div class="quizOption">
     <div class="pageText">
-
-      <h1>Choose the language you want to have a quiz on: </h1>
+      <h1>Choose the language you want to have a quiz on:</h1>
     </div>
-
-    <div v-for="(quiz, index) in quizLanguage"
-         :key="quiz.id"
-         :id="'quiz' + index">
-      <RouterLink class="quiz"  to="/quizDemo"> {{ quiz }} </RouterLink>
+    <div class="content">
+      <div
+          class="quizLanguage"
+        v-for="(quiz, index) in quizLanguage"
+        :key="quiz.id"
+        :id="'quiz' + index"
+      >
+        <RouterLink class="quiz" to="/quizDemo"> {{ quiz }} </RouterLink>
+      </div>
     </div>
   </div>
 
@@ -48,7 +51,6 @@ const quizLanguage = quizData.quizLanguage[id].quiz;
   box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
 }
 
-
 .quizLanguage:hover {
   background-color: #232747;
 }
@@ -66,6 +68,7 @@ h2 {
     margin-top: 6em;
     font-size: 0.9em;
   }
+
   .content {
     max-width: 60em;
     margin: 5em auto auto auto;
@@ -78,5 +81,6 @@ h2 {
     margin: 1em;
     padding: 1em;
     width: 15em;
+  }
 }
 </style>
