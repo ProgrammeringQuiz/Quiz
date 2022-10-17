@@ -3,7 +3,6 @@ import { RouterLink, RouterView } from "vue-router";
 import { ref } from "vue";
 
 let show = ref(false);
-
 </script>
 
 <template>
@@ -20,25 +19,25 @@ let show = ref(false);
       <Transition>
         <nav v-if="show" id="mobile">
           <RouterLink class="route" @click="show = !show" to="/"
-          >Home</RouterLink
+            >Home</RouterLink
           >
           <RouterLink class="route" @click="show = !show" to="/quizOptions"
             >Options</RouterLink
-          >
           >
           <RouterLink class="route" @click="show = !show" to="/quizDemo"
             >Quiz</RouterLink
           >
           <RouterLink class="route" @click="show = !show" to="/about"
             >Profile
-          </RouterLink
-          >
+          </RouterLink>
         </nav>
       </Transition>
 
       <nav id="desktop">
         <RouterLink class="route" to="/">Home</RouterLink>
 
+        <RouterLink class="route" to="/quizOptions">Options</RouterLink>
+        <RouterLink class="route" to="/quizDemo">Quiz</RouterLink>
         <RouterLink class="route" to="/about">Profile</RouterLink>
       </nav>
     </div>
@@ -77,6 +76,11 @@ let show = ref(false);
   flex-grow: 2;
   text-align: center;
   color: white;
+}
+
+.route {
+  padding: 2em;
+  box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
 }
 
 nav {
@@ -126,6 +130,7 @@ nav a {
 
   .route {
     flex-direction: row;
+    box-shadow: none;
   }
 
   .route:hover {
