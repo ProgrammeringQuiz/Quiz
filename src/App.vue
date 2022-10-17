@@ -1,8 +1,19 @@
 <script setup>
-import { RouterLink, RouterView } from "vue-router";
+import {RouterLink, RouterView, useRoute} from "vue-router";
 import { ref } from "vue";
 
 let show = ref(false);
+
+function BarText() {
+  let text;
+  if (useRoute().params.name == null) {
+    text = useRoute().name
+  }else {
+    text = useRoute().params.name
+  }
+  return text
+}
+
 </script>
 
 <template>
@@ -13,7 +24,7 @@ let show = ref(false);
   <header>
     <div class="wrapper">
       <div class="hamburger">
-        <h3 class="quiz">Programming - Quiz</h3>
+        <h3 class="quiz">{{ BarText() }}</h3>
         <i class="fa fa-bars fa-3x" @click="show = !show"></i>
       </div>
       <Transition>
@@ -21,13 +32,7 @@ let show = ref(false);
           <RouterLink class="route" @click="show = !show" to="/"
             >Home</RouterLink
           >
-          <RouterLink class="route" @click="show = !show" to="/quizOptions"
-            >Options</RouterLink
-          >
-          <RouterLink class="route" @click="show = !show" to="/quizDemo"
-            >Quiz</RouterLink
-          >
-          <RouterLink class="route" @click="show = !show" to="/about"
+          <RouterLink class="route" @click="show = !show" to="/profile"
             >Profile
           </RouterLink>
         </nav>
@@ -35,10 +40,7 @@ let show = ref(false);
 
       <nav id="desktop">
         <RouterLink class="route" to="/">Home</RouterLink>
-
-        <RouterLink class="route" to="/quizOptions">Options</RouterLink>
-        <RouterLink class="route" to="/quizDemo">Quiz</RouterLink>
-        <RouterLink class="route" to="/about">Profile</RouterLink>
+        <RouterLink class="route" to="/profile">Profile</RouterLink>
       </nav>
     </div>
   </header>
