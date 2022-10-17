@@ -165,6 +165,7 @@ function prevQuestion() {
 .questionBtn {
   display: flex;
   flex-direction: column;
+  align-items: center;
   padding: 1em;
   margin-top: 1em;
   width: 100%;
