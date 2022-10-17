@@ -14,6 +14,9 @@ let value = ref(0);
 let isDisabled = ref(false);
 const currentIndex = ref(0);
 const reactiveColor = ref("#2d4263");
+let indexValue = ref(0)
+let iconCorrect = ref(false);
+const iconWrong = ref(false);
 
 const answerStatus = ref(0)
 
@@ -31,9 +34,9 @@ function checkQuestion(x) {
 }
 
 function getQuestionBtnIndex(index) {
+  indexValue.value = index;
   if (localStorage.getItem(props.questionNumber.toString()) !== null) {
     index = localStorage.getItem(props.questionNumber).toString();
-    console.log(index);
     currentIndex.value = index;
   }
   if (props.questionData.answer === parseInt(index)) {
@@ -46,6 +49,7 @@ function getQuestionBtnIndex(index) {
     document.querySelector(
       "#btn" + props.questionData.answer
     ).style.backgroundColor = "#48A14D";
+
   }
   isDisabled.value = true;
   localStorage.setItem(String(props.questionNumber), String(index));
@@ -57,17 +61,21 @@ function isQuestionAnswered(x) {
     isDisabled.value = true;
     if (parseInt(local) === props.questionData.answer) {
       // document.querySelector("#btn" + local).style.backgroundColor = "#48A14D";
+      iconCorrect.value = true;
     } else {
     //   document.querySelector("#btn" + local).style.backgroundColor = "#B33F40";
     //   document.querySelector(
     //     "#btn" + props.questionData.answer
     //   ).style.backgroundColor = "#48A14D";
+      iconWrong.value = true;
     }
   }
 }
 
 function nextQuestion() {
   isDisabled.value = false;
+  iconCorrect.value = false;
+  iconWrong.value = false;
   setTimeout(function () {
     isQuestionAnswered(props.questionNumber);
   }, 1);
@@ -75,6 +83,7 @@ function nextQuestion() {
 }
 function prevQuestion() {
   isDisabled.value = false;
+  iconCorrect.value = false;
   setTimeout(function () {
     isQuestionAnswered(props.questionNumber);
   }, 1);
@@ -94,7 +103,7 @@ function prevQuestion() {
         {{ props.questionNumber }} / {{ props.questionSize.length }}
       </p>
       <img src="src/assets/placeholder-image.png" alt="placeholder-img" />
-      <p>{{ props.questionData.question }}</p>
+      <h1>{{ props.questionData.question }}</h1>
     </div>
 
     <div class="choices">
@@ -108,6 +117,8 @@ function prevQuestion() {
         @click="getQuestionBtnIndex(index)"
       >
         {{ option }}
+        <img class="iconImg" v-if="iconCorrect && index === props.questionData.answer" src="src/assets/correct.png">
+        <img class="iconImg" v-if="iconWrong && index == indexValue" src="src/assets/cross.png">
       </button>
     </div>
 
@@ -124,6 +135,11 @@ function prevQuestion() {
 </template>
 
 <style scoped>
+
+.iconImg {
+  width: 1.5em;
+}
+
 .container {
   font-family: Monospace, sans-serif;
 }
@@ -135,12 +151,13 @@ function prevQuestion() {
 
 .progress {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   color: #c84b31;
 }
 
 .content img {
-  width: 33em;
+  width: 60em;
+  height: auto;
   align-self: center;
 }
 
@@ -151,13 +168,23 @@ function prevQuestion() {
   text-align: center;
   color: #c84b31;
 }
+
+.content h1 {
+  font-size: 2.2em;
+  margin: 1em;
+  padding: 0;
+  text-align: center;
+  color: #c84b31;
+}
+
 .choices {
   margin: 0.3em;
 }
 
 .questionBtn {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
   padding: 1em;
   margin-top: 1em;
   width: 100%;
@@ -213,7 +240,7 @@ function prevQuestion() {
   box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (max-width: 600px) {
   .content img {
     max-width: 30em;
   }
@@ -226,7 +253,7 @@ function prevQuestion() {
   }
 
   .content img {
-    max-width: 50%;
+    max-width: 100%;
   }
 
   .choices {

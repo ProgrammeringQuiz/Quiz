@@ -1,0 +1,36 @@
+{
+  "quizLanguage": [
+    {
+      "language": [
+        "Java",
+        "Javascript",
+        "C#",
+        "Python"
+      ]
+    },
+    {
+      "quiz": [
+        "Variables",
+        "Classes",
+        "Loops",
+        "Arrays"
+      ]
+    },
+    {
+      "quiz": [
+        "Variables",
+        "Functions",
+        "Loops",
+        "Arrays"
+      ]
+    },
+    {
+      "quiz": [
+        "Variables",
+        "Method",
+        "Loops",
+        "Arrays"
+      ]
+    }
+  ]
+}
