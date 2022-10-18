@@ -116,6 +116,10 @@ nav a {
   .hamburger i {
     display: none;
   }
+  .hamburger {
+    display: flex;
+    width: 14vw;
+  }
 
   #mobile {
     display: none;
