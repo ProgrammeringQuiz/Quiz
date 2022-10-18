@@ -136,8 +136,7 @@ nav a {
   }
 
   .route:hover {
-    background-color: #232747;
-    border-radius: 0.5em;
+    background-color: #232747
   }
 }
 </style>
