@@ -116,6 +116,10 @@ nav a {
   .hamburger i {
     display: none;
   }
+  .hamburger {
+    display: flex;
+    width: 14vw;
+  }
 
   #mobile {
     display: none;
@@ -136,8 +140,7 @@ nav a {
   }
 
   .route:hover {
-    background-color: #232747;
-    border-radius: 0.5em;
+    background-color: #232747
   }
 }
 </style>
