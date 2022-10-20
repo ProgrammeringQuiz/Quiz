@@ -17,7 +17,9 @@ onMounted(() => {
 
 <template>
   <main v-if="quizStore.quiz" >
-    <h1 v-if="quizStore.quizCompleted">You did it! Your score is {{quizStore.totalScore}} / {{quizStore.quiz.length}}</h1>
+    <div class="result" v-if="quizStore.quizCompleted">
+    <h1 >You did it! Your score is {{quizStore.totalScore}} / {{quizStore.quiz.length}}</h1>
+    </div>
     <Question
         v-else
       @previousQuestion="previousQuestion"
@@ -33,3 +35,22 @@ onMounted(() => {
     loading...
   </main>
 </template>
+
+<style scoped>
+
+.result {
+  max-width: 35em;
+  margin: 5em auto auto;
+  display: flex;
+  background-color: #2d4263;
+  border-radius: 0.5em;
+  padding: 0.5em 0.5em 1em 0.5em;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  color: white;
+  box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+}
+
+
+</style>
