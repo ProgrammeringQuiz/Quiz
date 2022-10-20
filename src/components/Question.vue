@@ -1,7 +1,6 @@
 <script setup>
 import {ref} from "vue";
-
-const emit = defineEmits(["nextQuestion", "previousQuestion"]);
+import {useQuizStore} from "../stores/quiz";
 
 const props = defineProps({
   questionData: Object,
@@ -9,85 +8,42 @@ const props = defineProps({
   questionNumber: ref(0),
   questionCompleted: ref(),
 });
+const quizStore = useQuizStore()
+const answerStatus = ref()
+const questionAnswered = ref(false)
+const chosenAnswer = ref()
 
-let value = ref(0);
-let isDisabled = ref(false);
-const currentIndex = ref(0);
-const reactiveColor = ref("#2d4263");
-let indexValue = ref(0)
-let iconCorrect = ref(false);
-const iconWrong = ref(false);
+function checkAnswer(index) {
+  chosenAnswer.value = index;
+  console.log(index)
+  quizStore.addAnswer(index)
+  if (props.questionData.answer === index) {
+    answerStatus.value = 2
 
-const answerStatus = ref(0)
-
-
-function clearStorage(x) {
-  if (x) {
-    localStorage.clear();
-  }
-}
-
-function checkQuestion(x) {
-  if (!x) {
-    isQuestionAnswered(props.questionNumber);
-  }
-}
-
-function getQuestionBtnIndex(index) {
-  indexValue.value = index;
-  if (localStorage.getItem(props.questionNumber.toString()) !== null) {
-    index = localStorage.getItem(props.questionNumber).toString();
-    currentIndex.value = index;
-  }
-  if (props.questionData.answer === parseInt(index)) {
-    value.value++;
-    // document.querySelector("#btn" + index.toString()).style.backgroundColor =
-    //   "#48A14D";
   } else {
-    // document.querySelector("#btn" + index.toString()).style.backgroundColor =
-    //   "#B33F40";
-    document.querySelector(
-      "#btn" + props.questionData.answer
-    ).style.backgroundColor = "#48A14D";
+
+    answerStatus.value = 1
 
   }
-  isDisabled.value = true;
-  localStorage.setItem(String(props.questionNumber), String(index));
-}
-
-function isQuestionAnswered(x) {
-  let local = localStorage.getItem(x.toString());
-  if (local !== null) {
-    isDisabled.value = true;
-    if (parseInt(local) === props.questionData.answer) {
-      // document.querySelector("#btn" + local).style.backgroundColor = "#48A14D";
-      iconCorrect.value = true;
-    } else {
-    //   document.querySelector("#btn" + local).style.backgroundColor = "#B33F40";
-    //   document.querySelector(
-    //     "#btn" + props.questionData.answer
-    //   ).style.backgroundColor = "#48A14D";
-      iconWrong.value = true;
-    }
-  }
+  questionAnswered.value = true;
 }
 
 function nextQuestion() {
-  isDisabled.value = false;
-  iconCorrect.value = false;
-  iconWrong.value = false;
-  setTimeout(function () {
-    isQuestionAnswered(props.questionNumber);
-  }, 1);
-  emit("nextQuestion");
+
+  quizStore.nextQuestion()
+  if(quizStore.userAnswers[quizStore.questionNumber]) {
+
+    chosenAnswer.value = quizStore.userAnswers[quizStore.questionNumber]
+  }else{
+    chosenAnswer.value = null
+    questionAnswered.value = false
+  }
+
 }
 function prevQuestion() {
-  isDisabled.value = false;
-  iconCorrect.value = false;
-  setTimeout(function () {
-    isQuestionAnswered(props.questionNumber);
-  }, 1);
-  emit("previousQuestion");
+  questionAnswered.value = true
+  quizStore.previousQuestion()
+  chosenAnswer.value = quizStore.userAnswers[quizStore.questionNumber]
 }
 </script>
 
@@ -95,8 +51,7 @@ function prevQuestion() {
 
   <div
     class="container"
-    v-if="props.questionSize.length > 0 && props.questionCompleted === false"
-    :ref="() => checkQuestion(props.questionCompleted)"
+    v-if="props.questionSize.length > 0 && questionCompleted === false"
   >
     <div class="content">
       <p class="progress">
@@ -110,27 +65,25 @@ function prevQuestion() {
       <button
         v-for="(option, index) in props.questionData.options"
         :key="option.id"
-        :disabled="isDisabled"
+        :disabled="questionAnswered"
         class="questionBtn"
         :id="'btn' + index"
-        :class = "{buttonFailed: answerStatus === 1, buttonSuccess:answerStatus === 2 }"
-        @click="getQuestionBtnIndex(index)"
+        :class = "{unClickable: questionAnswered, buttonHover: !questionAnswered, buttonFailed: chosenAnswer === index && answerStatus === 1, buttonSuccess:chosenAnswer === index && answerStatus === 2 }"
+        @click="checkAnswer(index)"
       >
         {{ option }}
-        <img class="iconImg" v-if="iconCorrect && index === props.questionData.answer" src="src/assets/correct.png">
-        <img class="iconImg" v-if="iconWrong && index == indexValue" src="src/assets/cross.png">
+        <div v-if="questionAnswered">
+
+          <img class="iconImg" v-if="chosenAnswer !== null && chosenAnswer !== undefined && index === props.questionData.answer" src="src/assets/correct.png">
+          <img class="iconImg" v-if="chosenAnswer === index && index !== props.questionData.answer" src="src/assets/cross.png">
+        </div>
       </button>
     </div>
 
     <div class="navigation">
       <button @click="prevQuestion" class="prev">Previous</button>
-      <button @click="nextQuestion" class="next" v-if="props.questionNumber == props.questionSize.length"> finish </button>
-      <button @click="nextQuestion" class="next" v-else> next </button>
+      <button :disabled= "!questionAnswered" @click="nextQuestion" class="next" >Next</button>
     </div>
-  </div>
-  <div v-else class="result" :ref="() => clearStorage(props.questionCompleted)">
-    <h2>You have finished all questions!</h2>
-    <p>Your score is {{ value }} / {{ questionSize.length }}</p>
   </div>
 </template>
 
@@ -220,7 +173,12 @@ function prevQuestion() {
   cursor: pointer;
 }
 
-.questionBtn:hover,
+.unClickable{
+
+  cursor: auto;
+
+}
+.buttonHover:hover,
 .prev:hover,
 .next:hover {
   background-color: #232747;
