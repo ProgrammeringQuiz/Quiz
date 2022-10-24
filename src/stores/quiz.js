@@ -38,7 +38,7 @@ export const useQuizStore = defineStore("quiz", () => {
   }
 
   onMounted(() => {
-    fetch("http://localhost:8080/api/quiz")
+    fetch("http://localhost:8080/api/java/variable")
       .then((response) => response.json())
       .then((data) => {
         quiz.value = data.data;
