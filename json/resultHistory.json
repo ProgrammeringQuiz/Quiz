@@ -1,0 +1,16 @@
+{
+  "result": [
+    {
+      "quizName": "Java",
+      "quizResult": "3/3"
+    },
+    {
+      "quizName": "Javascript",
+      "quizResult": "2/3"
+    },
+    {
+      "quizName": "C#",
+      "quizResult": "3/3"
+    }
+  ]
+}
