@@ -44,6 +44,7 @@ function BarText() {
       <nav id="desktop">
         <RouterLink class="route" to="/">Home</RouterLink>
         <RouterLink class="route" to="/profile">Profile</RouterLink>
+        <RouterLink class="route" to="/login">Login</RouterLink>
       </nav>
     </div>
   </header>
