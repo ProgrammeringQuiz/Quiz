@@ -29,11 +29,14 @@ function BarText() {
       </div>
       <Transition>
         <nav v-if="show" id="mobile">
-          <RouterLink class="route" @click="show = !show" to="/"
-            >Home</RouterLink
-          >
+          <RouterLink class="route" @click="show = !show" to="/">
+            Home
+          </RouterLink>
           <RouterLink class="route" @click="show = !show" to="/profile"
             >Profile
+          </RouterLink>
+          <RouterLink class="route" @click="show = !show" to="/History">
+            History
           </RouterLink>
         </nav>
       </Transition>
