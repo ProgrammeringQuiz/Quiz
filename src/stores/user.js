@@ -9,7 +9,8 @@ export const useUserStore = defineStore("user", () => {
       .then((data) => {
         user.value = data.data;
         console.log(data);
-      });
+      })
+      .catch((err) => console.log(err));
   });
 
   return {

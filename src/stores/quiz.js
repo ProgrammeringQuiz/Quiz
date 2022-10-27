@@ -43,7 +43,8 @@ export const useQuizStore = defineStore("quiz", () => {
       .then((data) => {
         quiz.value = data.data;
         console.log(data);
-      });
+      })
+      .catch((err) => console.log(err));
   });
 
   return {

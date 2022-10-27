@@ -1,14 +1,36 @@
 <script setup>
 import { useUserStore } from "@/stores/user";
-const userStore = useUserStore();
+import { ref } from "vue";
+
+let userStore;
+let attempt = 0;
+const history = ref([]);
+function getStore() {
+  try {
+    userStore = useUserStore();
+
+    history.value = Array.from(userStore.user[1].quizHistory);
+  } catch (e) {
+    if (attempt > 10) {
+      throw new Error("Something went wrong");
+    } else {
+      console.log(attempt);
+      attempt++;
+      setTimeout(() => {
+        getStore();
+      }, 500);
+    }
+  }
+}
+getStore();
 </script>
 
 <template>
   <div class="result">
     <h2>Best result:</h2>
-    <p v-for="index in userStore.user[1].quizHistory.length" id="index">
-      {{ index }}. {{ userStore.user[1].quizHistory[index - 1].quizName }} -
-      {{ userStore.user[1].quizHistory[index - 1].score }}
+    <p v-for="index in history.length" id="index">
+      {{ index }}. {{ history[index - 1].quizName }} -
+      {{ history[index - 1].score }}
     </p>
   </div>
 </template>
@@ -23,7 +45,6 @@ const userStore = useUserStore();
   background-color: #2d4263;
   padding: 1.5em;
   text-align: center;
-  color: white;
   box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
 }
 
