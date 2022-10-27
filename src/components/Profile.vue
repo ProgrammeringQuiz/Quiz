@@ -1,35 +1,30 @@
 <script setup>
-import users from "../../json/users.json";
-import History from "../components/History.vue"
+import { useUserStore } from "@/stores/user";
 
-const user = users.users[1]
-
-
+const userStore = useUserStore();
+console.log(userStore.user);
 </script>
-
 
 <template>
   <div class="container">
     <div class="userBox">
       <img src="src/assets/placeholder-image.png" alt="placeholder-img" />
-      <h1>First Name: {{ user.firstName }}</h1>
-      <h1>Last Name: {{ user.lastName }}</h1>
-      <h1>Email: {{ user.email }}</h1>
-      <h1>Username: {{  user.username }}</h1>
+      <h1>First Name: {{ userStore.user[1].fName }}</h1>
+      <h1>Last Name: {{ userStore.user[1].lName }}</h1>
+      <h1>Email: {{ userStore.user[1].email }}</h1>
+      <h1>Username: {{ userStore.user[1].username }}</h1>
     </div>
     <div class="imageBox">
-    <div class="history">
-      <main>
-        <History/>
-      </main>
-    </div>
+      <div class="history">
+        <main>
+          <History />
+        </main>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-
-
 .userBox h1 {
   margin-bottom: 2em;
 }
@@ -58,8 +53,6 @@ const user = users.users[1]
   .container {
     display: flex;
     flex-direction: column;
-
-
   }
 
   .userBox {
@@ -70,7 +63,5 @@ const user = users.users[1]
   .userBox img {
     width: 60vw;
   }
-
-
 }
 </style>
