@@ -1,18 +1,16 @@
 <script setup>
-import history from "../../json/resultHistory.json";
-
-const historyData = history.result;
-
-
+import { useUserStore } from "@/stores/user";
+const userStore = useUserStore();
 </script>
 
 <template>
   <div class="result">
-  <h2>Best result:</h2>
-  <p v-for="index in historyData.length " id="index" >
-    {{ index }}. {{ historyData[index - 1].quizName }} - {{ historyData[index - 1].quizResult }}
-  </p>
-   </div>
+    <h2>Best result:</h2>
+    <p v-for="index in userStore.user[1].quizHistory.length" id="index">
+      {{ index }}. {{ userStore.user[1].quizHistory[index - 1].quizName }} -
+      {{ userStore.user[1].quizHistory[index - 1].score }}
+    </p>
+  </div>
 </template>
 
 <style scoped>
@@ -38,14 +36,13 @@ const historyData = history.result;
 .result p {
   text-align: left;
   font-size: 0.8em;
-
 }
 
 @media screen and (max-width: 1024px) {
-.result {
-  width: 85vw;
-  height: 100vh;
-  text-align: center;
-}
+  .result {
+    width: 85vw;
+    height: 100vh;
+    text-align: center;
+  }
 }
 </style>
