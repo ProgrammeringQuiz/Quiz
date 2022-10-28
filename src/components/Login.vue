@@ -1,5 +1,9 @@
 <script setup>
 
+function signin() {
+
+}
+
 </script>
 
 <template>
@@ -9,7 +13,7 @@
     <input type="text" placeholder="Username" id="username" />
     <label for="password"></label>
     <input type="password" placeholder="Password" id="password" />
-    <button>Sign In</button>
+    <button @click="signin">Sign In</button>
     <span>Need an account? </span>
     <RouterLink class="route" to="/signup">Sign up</RouterLink>
   </form>
