@@ -7,7 +7,6 @@ export const useQuizStore = defineStore("quiz", () => {
   const quiz = ref([]);
   const quizCompleted = ref(false);
   const userAnswers = ref([]);
-
   const totalScore = computed(() => {
     let score = 0;
     quiz.value.forEach((question, index) => {
@@ -27,6 +26,20 @@ export const useQuizStore = defineStore("quiz", () => {
       questionNumber.value++;
     } else {
       quizCompleted.value = true;
+      const userId = "635a10fb3886e20608df40f9";
+
+      const updateUserQuizHistory = {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          quizHistory: [
+            { quizName: "testQuiz3", score: `${totalScore.value}` },
+          ],
+        }),
+      };
+      fetch(`http://localhost:8080/api/user/${userId}`, updateUserQuizHistory)
+        .then((response) => response.json())
+        .then((data) => console.log(data));
     }
   }
   function setQuiz(quizData) {
