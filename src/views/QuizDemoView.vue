@@ -1,27 +1,30 @@
 <script setup>
 import Question from "../components/Question.vue";
-import {onMounted} from "vue";
-import {useQuizStore} from "../stores/quiz";
+import { onMounted } from "vue";
+import { useQuizStore } from "../stores/quiz";
 
-const quizStore = useQuizStore()
+const quizStore = useQuizStore();
 
 onMounted(() => {
-  fetch('http://localhost:8080/getQuestions').then(response => response.json()).then(data => {
-    quizStore.setQuiz(data.quizDemo)
-    console.log(data)
-
-  })
-
-} )
+  fetch("http://localhost:8080/getQuestions")
+    .then((response) => response.json())
+    .then((data) => {
+      quizStore.setQuiz(data.quizDemo);
+      console.log(data);
+    });
+});
 </script>
 
 <template>
-  <main v-if="quizStore.quiz" >
+  <main v-if="quizStore.quiz">
     <div class="result" v-if="quizStore.quizCompleted">
-    <h1 >You did it! Your score is {{quizStore.totalScore}} / {{quizStore.quiz.length}}</h1>
+      <h1>
+        You did it! Your score is {{ quizStore.totalScore }} /
+        {{ quizStore.quiz.length }}
+      </h1>
     </div>
     <Question
-        v-else
+      v-else
       @previousQuestion="previousQuestion"
       @nextQuestion="nextQuestion"
       v-bind:questionData="quizStore.quiz[quizStore.questionNumber]"
@@ -31,13 +34,10 @@ onMounted(() => {
     />
   </main>
 
-  <main v-else>
-    loading...
-  </main>
+  <main v-else>loading...</main>
 </template>
 
 <style scoped>
-
 .result {
   max-width: 35em;
   margin: 5em auto auto;
@@ -51,6 +51,4 @@ onMounted(() => {
   color: white;
   box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
 }
-
-
 </style>

@@ -1,6 +1,6 @@
 <script setup>
-import {ref} from "vue";
-import {useQuizStore} from "../stores/quiz";
+import { ref } from "vue";
+import { useQuizStore } from "../stores/quiz";
 
 const props = defineProps({
   questionData: Object,
@@ -8,47 +8,40 @@ const props = defineProps({
   questionNumber: ref(0),
   questionCompleted: ref(),
 });
-const quizStore = useQuizStore()
-const answerStatus = ref()
-const questionAnswered = ref(false)
-const chosenAnswer = ref()
+const quizStore = useQuizStore();
+const answerStatus = ref();
+const questionAnswered = ref(false);
+const chosenAnswer = ref();
 
 function checkAnswer(index) {
   chosenAnswer.value = index;
-  console.log(index)
-  quizStore.addAnswer(index)
+  console.log(index);
+  quizStore.addAnswer(index);
   if (props.questionData.answer === index) {
-    answerStatus.value = 2
-
+    answerStatus.value = 2;
   } else {
-
-    answerStatus.value = 1
-
+    answerStatus.value = 1;
   }
   questionAnswered.value = true;
 }
 
 function nextQuestion() {
-
-  quizStore.nextQuestion()
-  if(quizStore.userAnswers[quizStore.questionNumber]) {
-
-    chosenAnswer.value = quizStore.userAnswers[quizStore.questionNumber]
-  }else{
-    chosenAnswer.value = null
-    questionAnswered.value = false
+  quizStore.nextQuestion();
+  if (quizStore.userAnswers[quizStore.questionNumber]) {
+    chosenAnswer.value = quizStore.userAnswers[quizStore.questionNumber];
+  } else {
+    chosenAnswer.value = null;
+    questionAnswered.value = false;
   }
-
 }
 function prevQuestion() {
-  questionAnswered.value = true
-  quizStore.previousQuestion()
-  chosenAnswer.value = quizStore.userAnswers[quizStore.questionNumber]
+  questionAnswered.value = true;
+  quizStore.previousQuestion();
+  chosenAnswer.value = quizStore.userAnswers[quizStore.questionNumber];
 }
 </script>
 
 <template>
-
   <div
     class="container"
     v-if="props.questionSize.length > 0 && questionCompleted === false"
@@ -68,27 +61,44 @@ function prevQuestion() {
         :disabled="questionAnswered"
         class="questionBtn"
         :id="'btn' + index"
-        :class = "{unClickable: questionAnswered, buttonHover: !questionAnswered, buttonFailed: chosenAnswer === index && answerStatus === 1, buttonSuccess:chosenAnswer === index && answerStatus === 2 }"
+        :class="{
+          unClickable: questionAnswered,
+          buttonHover: !questionAnswered,
+          buttonFailed: chosenAnswer === index && answerStatus === 1,
+          buttonSuccess: chosenAnswer === index && answerStatus === 2,
+        }"
         @click="checkAnswer(index)"
       >
         {{ option }}
         <div v-if="questionAnswered">
-
-          <img class="iconImg" v-if="chosenAnswer !== null && chosenAnswer !== undefined && index === props.questionData.answer" src="src/assets/correct.png">
-          <img class="iconImg" v-if="chosenAnswer === index && index !== props.questionData.answer" src="src/assets/cross.png">
+          <img
+            class="iconImg"
+            v-if="
+              chosenAnswer !== null &&
+              chosenAnswer !== undefined &&
+              index === props.questionData.answer
+            "
+            src="src/assets/correct.png"
+          />
+          <img
+            class="iconImg"
+            v-if="chosenAnswer === index && index !== props.questionData.answer"
+            src="src/assets/cross.png"
+          />
         </div>
       </button>
     </div>
 
     <div class="navigation">
       <button @click="prevQuestion" class="prev">Previous</button>
-      <button :disabled= "!questionAnswered" @click="nextQuestion" class="next" >Next</button>
+      <button :disabled="!questionAnswered" @click="nextQuestion" class="next">
+        Next
+      </button>
     </div>
   </div>
 </template>
 
 <style scoped>
-
 .iconImg {
   width: 1.5em;
 }
@@ -150,7 +160,6 @@ function prevQuestion() {
 
 .buttonFailed {
   background-color: red;
-
 }
 
 .buttonSuccess {
@@ -173,10 +182,8 @@ function prevQuestion() {
   cursor: pointer;
 }
 
-.unClickable{
-
+.unClickable {
   cursor: auto;
-
 }
 .buttonHover:hover,
 .prev:hover,

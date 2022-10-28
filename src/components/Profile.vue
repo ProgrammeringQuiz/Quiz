@@ -1,35 +1,68 @@
 <script setup>
-import users from "../../json/users.json";
-import History from "../components/History.vue"
+import { useUserStore } from "@/stores/user";
+import { ref } from "vue";
+import History from "../components/History.vue";
 
-const user = users.users[1]
+let profileLink = ref("loading...");
+const localhost = "http://localhost:8080/";
+let imgLink = ref("");
+let userStore;
+let attempt = 0;
+const history = ref([]);
 
+const firstName = ref("Loading..");
+const lastName = ref("Loading..");
+const email = ref("Loading..");
+const username = ref("Loading..");
 
+function getStore() {
+  try {
+    userStore = useUserStore();
+    profileLink.value = userStore.user[9].profileImage;
+    imgLink.value = localhost + profileLink.value;
+
+    firstName.value = userStore.user[9].fName;
+    lastName.value = userStore.user[9].lName;
+    email.value = userStore.user[9].email;
+    username.value = userStore.user[9].username;
+
+    history.value = Array.from(userStore.user[1].quizHistory);
+
+    console.log("image", imgLink.value);
+  } catch (e) {
+    if (attempt > 10) {
+      throw new Error("Something went wrong");
+    } else {
+      console.log(attempt);
+      attempt++;
+      setTimeout(() => {
+        getStore();
+      }, 500);
+    }
+  }
+}
+getStore();
 </script>
-
 
 <template>
   <div class="container">
+    <h1></h1>
     <div class="userBox">
-      <img src="src/assets/placeholder-image.png" alt="placeholder-img" />
-      <h1>First Name: {{ user.firstName }}</h1>
-      <h1>Last Name: {{ user.lastName }}</h1>
-      <h1>Email: {{ user.email }}</h1>
-      <h1>Username: {{  user.username }}</h1>
+      <img :src="imgLink" alt="placeholder-img" />
+      <h1>Username: {{ username }}</h1>
+      <h1>First Name: {{ firstName }}</h1>
+      <h1>Last Name: {{ lastName }}</h1>
+      <h1>Email: {{ email }}</h1>
     </div>
     <div class="imageBox">
-    <div class="history">
-      <main>
-        <History/>
-      </main>
-    </div>
+      <div class="history">
+        <main><History :quiz-history="history" /></main>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-
-
 .userBox h1 {
   margin-bottom: 2em;
 }
@@ -58,8 +91,6 @@ const user = users.users[1]
   .container {
     display: flex;
     flex-direction: column;
-
-
   }
 
   .userBox {
@@ -70,7 +101,5 @@ const user = users.users[1]
   .userBox img {
     width: 60vw;
   }
-
-
 }
 </style>

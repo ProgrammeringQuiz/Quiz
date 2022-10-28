@@ -1,18 +1,38 @@
 <script setup>
-import history from "../../json/resultHistory.json";
+import { useUserStore } from "@/stores/user";
+import { ref } from "vue";
 
-const historyData = history.result;
+let userStore;
+let attempt = 0;
+const history = ref([]);
+function getStore() {
+  try {
+    userStore = useUserStore();
 
-
+    history.value = Array.from(userStore.user[1].quizHistory);
+  } catch (e) {
+    if (attempt > 10) {
+      throw new Error("Something went wrong");
+    } else {
+      console.log(attempt);
+      attempt++;
+      setTimeout(() => {
+        getStore();
+      }, 500);
+    }
+  }
+}
+getStore();
 </script>
 
 <template>
   <div class="result">
-  <h2>Best result:</h2>
-  <p v-for="index in historyData.length " id="index" >
-    {{ index }}. {{ historyData[index - 1].quizName }} - {{ historyData[index - 1].quizResult }}
-  </p>
-   </div>
+    <h2>Best result:</h2>
+    <p v-for="index in history.length" id="index">
+      {{ index }}. {{ history[index - 1].quizName }} -
+      {{ history[index - 1].score }}
+    </p>
+  </div>
 </template>
 
 <style scoped>
@@ -25,7 +45,6 @@ const historyData = history.result;
   background-color: #2d4263;
   padding: 1.5em;
   text-align: center;
-  color: white;
   box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
 }
 
@@ -38,14 +57,13 @@ const historyData = history.result;
 .result p {
   text-align: left;
   font-size: 0.8em;
-
 }
 
 @media screen and (max-width: 1024px) {
-.result {
-  width: 85vw;
-  height: 100vh;
-  text-align: center;
-}
+  .result {
+    width: 85vw;
+    height: 100vh;
+    text-align: center;
+  }
 }
 </style>
