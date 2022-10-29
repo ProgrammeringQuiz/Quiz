@@ -3,6 +3,8 @@ import QuizDemo from "../views/QuizDemoView.vue";
 import QuizOptions from "../views/QuizOptionsView.vue";
 import HomeView from "../views/HomeView.vue";
 import History from "../components/History.vue";
+import Login from "../components/Login.vue"
+import SignUp from "../components/SignUp.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -29,8 +31,18 @@ const router = createRouter({
     },
     {
       path: "/history",
-      name: "history",
+      name: "History",
       component: History,
+    },
+    {
+      path: "/login",
+      name: "Login",
+      component: Login,
+    },
+    {
+      path: "/signup",
+      name: "Sign up",
+      component: SignUp,
     },
   ],
 });
