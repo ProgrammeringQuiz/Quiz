@@ -30,7 +30,7 @@ getStore();
     <h2>Best result:</h2>
     <p v-for="index in history.length" id="index">
       {{ index }}. {{ history[index - 1].quizName }} -
-      {{ history[index - 1].score }}
+      {{ history[index - 1].score }} / {{ history[index - 1].scoreOf }}
     </p>
   </div>
 </template>

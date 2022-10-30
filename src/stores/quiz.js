@@ -22,6 +22,7 @@ export const useQuizStore = defineStore("quiz", () => {
   }
 
   function nextQuestion() {
+    console.log(quiz.value.length - 1)
     if (questionNumber.value < quiz.value.length - 1) {
       questionNumber.value++;
     } else {
@@ -33,7 +34,11 @@ export const useQuizStore = defineStore("quiz", () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           quizHistory: [
-            { quizName: "testQuiz3", score: `${totalScore.value}` },
+            {
+              quizName: `${quiz.value[0].title}`,
+              score: `${totalScore.value}`,
+              scoreOf: `${quiz.value.length}`,
+            },
           ],
         }),
       };
