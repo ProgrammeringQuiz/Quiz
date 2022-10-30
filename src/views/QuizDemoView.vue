@@ -31,6 +31,7 @@ onMounted(() => {
       v-bind:questionSize="quizStore.quiz"
       v-bind:questionNumber="quizStore.questionNumber + 1"
       v-bind:questionCompleted="quizStore.questionCompleted"
+      :imgLink="quizStore.imgLink[quizStore.questionNumber]"
     />
   </main>
 

@@ -7,6 +7,7 @@ const props = defineProps({
   questionSize: ref(),
   questionNumber: ref(0),
   questionCompleted: ref(),
+  imgLink: Object,
 });
 const quizStore = useQuizStore();
 const answerStatus = ref();
@@ -50,7 +51,7 @@ function prevQuestion() {
       <p class="progress">
         {{ props.questionNumber }} / {{ props.questionSize.length }}
       </p>
-      <img src="src/assets/placeholder-image.png" alt="placeholder-img" />
+      <img :src="props.imgLink" alt="placeholder-img" />
       <h1>{{ props.questionData.question }}</h1>
     </div>
 

@@ -27,8 +27,6 @@ function getStore() {
     username.value = userStore.user[9].username;
 
     history.value = Array.from(userStore.user[1].quizHistory);
-
-    console.log("image", imgLink.value);
   } catch (e) {
     if (attempt > 10) {
       throw new Error("Something went wrong");
