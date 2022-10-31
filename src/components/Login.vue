@@ -1,19 +1,37 @@
 <script setup>
+import {ref} from "vue";
+import {useRouter} from "vue-router"
+import { useUserStore } from "@/stores/user";
 
-function signin() {
 
+let userStore = useUserStore();
+
+const username = ref();
+const password = ref();
+const errMsg = ref();
+const router = useRouter();
+
+const signIn = () => {
+  console.log("Password: ", password.value)
+  console.log("Bcrypt Password: ", userStore.user[9].password)
+  console.log("Username: ", userStore.user.find(username.value))
+  if (username.value == userStore.user[9].username && password.value == userStore.user[9].password)
+  router.push("/profile")
+  else
+  errMsg.value = "Incorrect username or password"
 }
 
 </script>
 
 <template>
-  <form action="">
+  <form action="" @submit.prevent="onSubmit">
     <h1>Welcome</h1>
     <label for="username"></label>
-    <input type="text" placeholder="Username" id="username" />
+    <input type="text" placeholder="Username" id="username" v-model="username"/>
     <label for="password"></label>
-    <input type="password" placeholder="Password" id="password" />
-    <button @click="signin">Sign In</button>
+    <input type="password" placeholder="Password" id="password" v-model="password"/>
+    <p v-if="errMsg">{{ errMsg }}</p>
+    <button @click="signIn">Sign In</button>
     <span>Need an account? </span>
     <RouterLink class="route" to="/signup">Sign up</RouterLink>
   </form>
