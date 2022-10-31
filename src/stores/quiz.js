@@ -7,6 +7,9 @@ export const useQuizStore = defineStore("quiz", () => {
   const quiz = ref([]);
   const quizCompleted = ref(false);
   const userAnswers = ref([]);
+  let questionLink = ref("loading...");
+  const localhost = "http://localhost:8080/";
+  let imgLink = ref([]);
   const totalScore = computed(() => {
     let score = 0;
     quiz.value.forEach((question, index) => {
@@ -17,6 +20,14 @@ export const useQuizStore = defineStore("quiz", () => {
     return score;
   });
 
+  function addImageLink(){
+    quiz.value.forEach((question, index) => {
+      questionLink.value = question.questionImg;
+      imgLink.value[index] = localhost + questionLink.value;
+      return imgLink;
+    });
+    console.log(imgLink);
+  }
   function addAnswer(answer) {
     userAnswers.value.push(answer);
   }
@@ -33,7 +44,11 @@ export const useQuizStore = defineStore("quiz", () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           quizHistory: [
-            { quizName: "testQuiz3", score: `${totalScore.value}` },
+            {
+              quizName: `${quiz.value[0].title}`,
+              score: `${totalScore.value}`,
+              scoreOf: `${quiz.value.length}`,
+            },
           ],
         }),
       };
@@ -55,16 +70,20 @@ export const useQuizStore = defineStore("quiz", () => {
       .then((response) => response.json())
       .then((data) => {
         quiz.value = data.data;
+        addImageLink();
         console.log(data);
       })
       .catch((err) => console.log(err));
   });
+
 
   return {
     questionCompleted,
     questionNumber,
     nextQuestion,
     previousQuestion,
+    addImageLink,
+    imgLink,
     quiz,
     setQuiz,
     quizCompleted,

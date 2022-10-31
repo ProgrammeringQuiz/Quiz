@@ -1,15 +1,21 @@
 <script setup>
 import { useUserStore } from "@/stores/user";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 let userStore;
 let attempt = 0;
 const history = ref([]);
+let highestScore = [];
+
 function getStore() {
   try {
     userStore = useUserStore();
-
     history.value = Array.from(userStore.user[1].quizHistory);
+    highestScore = computed(() => {
+      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+      return history.value.sort((a, b) => b.score - a.score);
+    });
+    console.log("score", highestScore.value);
   } catch (e) {
     if (attempt > 10) {
       throw new Error("Something went wrong");
@@ -28,9 +34,9 @@ getStore();
 <template>
   <div class="result">
     <h2>Best result:</h2>
-    <p v-for="index in history.length" id="index">
-      {{ index }}. {{ history[index - 1].quizName }} -
-      {{ history[index - 1].score }}
+    <p v-for="index in highestScore.length" id="index">
+      {{ index }}. {{ highestScore[index - 1].quizName }} -
+      {{ highestScore[index - 1].score }} / {{ highestScore[index - 1].scoreOf }}
     </p>
   </div>
 </template>
