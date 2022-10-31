@@ -20,7 +20,7 @@ export const useQuizStore = defineStore("quiz", () => {
     return score;
   });
 
-  function addImageLink(){
+  function addImageLink() {
     quiz.value.forEach((question, index) => {
       questionLink.value = question.questionImg;
       imgLink.value[index] = localhost + questionLink.value;
@@ -65,23 +65,37 @@ export const useQuizStore = defineStore("quiz", () => {
     if (questionNumber.value > 0) questionNumber.value--;
   }
 
-  onMounted(() => {
-    fetch("http://localhost:8080/api/java/variable")
-      .then((response) => response.json())
-      .then((data) => {
-        quiz.value = data.data;
-        addImageLink();
-        console.log(data);
-      })
-      .catch((err) => console.log(err));
-  });
-
+  function selectQuiz(selectedQuiz) {
+    switch (selectedQuiz) {
+      case "JavaVariables":
+        fetch("http://localhost:8080/api/java/variable")
+          .then((response) => response.json())
+          .then((data) => {
+            quiz.value = data.data;
+            addImageLink();
+            console.log(data);
+          })
+          .catch((err) => console.log(err));
+        break;
+      case "JavaClasses":
+        fetch("http://localhost:8080/api/java/class")
+          .then((response) => response.json())
+          .then((data) => {
+            quiz.value = data.data;
+            addImageLink();
+            console.log(data);
+          })
+          .catch((err) => console.log(err));
+        break;
+    }
+  }
 
   return {
     questionCompleted,
     questionNumber,
     nextQuestion,
     previousQuestion,
+    selectQuiz,
     addImageLink,
     imgLink,
     quiz,
