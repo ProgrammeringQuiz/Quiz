@@ -61,8 +61,13 @@ export const useQuizStore = defineStore("quiz", () => {
     quiz.value = quizData;
   }
 
+
   function previousQuestion() {
-    if (questionNumber.value > 0) questionNumber.value--;
+    if (questionNumber.value > 0){
+      questionNumber.value--;
+
+    }
+
   }
 
   onMounted(() => {

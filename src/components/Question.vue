@@ -30,15 +30,27 @@ function nextQuestion() {
   quizStore.nextQuestion();
   if (quizStore.userAnswers[quizStore.questionNumber]) {
     chosenAnswer.value = quizStore.userAnswers[quizStore.questionNumber];
+    if (quizStore.quiz[quizStore.questionNumber].answer === chosenAnswer.value) {
+      answerStatus.value = 2;
+    } else {
+      answerStatus.value = 1;
+    }
   } else {
     chosenAnswer.value = null;
     questionAnswered.value = false;
+    answerStatus.value = null;
   }
+
 }
 function prevQuestion() {
   questionAnswered.value = true;
   quizStore.previousQuestion();
   chosenAnswer.value = quizStore.userAnswers[quizStore.questionNumber];
+  if (quizStore.quiz[quizStore.questionNumber].answer === chosenAnswer.value) {
+    answerStatus.value = 2;
+  } else {
+    answerStatus.value = 1;
+  }
 }
 </script>
 
