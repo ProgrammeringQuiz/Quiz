@@ -28,7 +28,7 @@ function checkAnswer(index) {
 
 function nextQuestion() {
   quizStore.nextQuestion();
-  if (quizStore.userAnswers[quizStore.questionNumber]) {
+  if (quizStore.userAnswers[quizStore.questionNumber] || quizStore.userAnswers[quizStore.questionNumber] === 0) {
     chosenAnswer.value = quizStore.userAnswers[quizStore.questionNumber];
     if (quizStore.quiz[quizStore.questionNumber].answer === chosenAnswer.value) {
       answerStatus.value = 2;
