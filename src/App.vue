@@ -1,8 +1,10 @@
 <script setup>
 import {RouterLink, RouterView, useRoute} from "vue-router";
+import {useAuthStore} from "@/stores/authStore";
 import { ref } from "vue";
 
 let show = ref(false);
+const authStore = useAuthStore();
 
 function BarText() {
   let text;
@@ -44,7 +46,7 @@ function BarText() {
       <nav id="desktop">
         <RouterLink class="route" to="/">Home</RouterLink>
         <RouterLink class="route" to="/profile">Profile</RouterLink>
-        <RouterLink class="route" to="/login">Login</RouterLink>
+        <button @click="authStore.logout()">Sign out</button>
       </nav>
     </div>
   </header>

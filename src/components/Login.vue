@@ -1,24 +1,20 @@
 <script setup>
 import {ref} from "vue";
-import {useRouter} from "vue-router"
-import { useUserStore } from "@/stores/user";
-import signInUser from "../composables/useSignIn.js"
+import {useAuthStore} from "@/stores/authStore.js";
 
-
-let userStore = useUserStore();
+let authStore = useAuthStore();
 
 const username = ref();
 const password = ref();
 const errMsg = ref();
-const router = useRouter();
 
-const signIn = () => {
-  signInUser().signInInput({
-    username: `${username.value}`,
-    password: `${password.value}`
-  })
+const signIn = async () => {
 
-  console.log("JWT: ", signInUser().getToken.value)
+  await authStore.login({
+        username: `${username.value}`,
+        password: `${password.value}`
+      })
+
 }
 
 </script>

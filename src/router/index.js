@@ -5,8 +5,9 @@ import HomeView from "../views/HomeView.vue";
 import History from "../components/History.vue";
 import Login from "../components/Login.vue"
 import SignUp from "../components/SignUp.vue"
+import { useAuthStore } from '@/stores/authStore.js';
 
-const router = createRouter({
+export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
@@ -46,5 +47,16 @@ const router = createRouter({
     },
   ],
 });
+
+router.beforeEach(async (to) => {
+  const publicPage = ["/login", "/", "/signup", "/quizOptions/:name/:id", "/quizDemo"];
+  const authRequired = !publicPage.includes(to.path);
+  const auth = useAuthStore();
+
+  if (authRequired && !auth.user) {
+    auth.returnUrl = to.fullPath;
+    return "/login";
+  }
+})
 
 export default router;

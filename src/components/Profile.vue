@@ -1,12 +1,18 @@
 <script setup>
 import { useUserStore } from "@/stores/user";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import History from "../components/History.vue";
-
+import {useAuthStore} from "@/stores/authStore";
 let profileLink = ref("loading...");
-const localhost = "http://localhost:8080/";
+
+const userAuth = useAuthStore();
+const userStore = useUserStore();
+console.log("userInfo Profile: ", userAuth.user)
+const localhost = "http://localhost:8080/api/user/" + userAuth.user.userId;
+
+console.log("localhost: ", localhost)
+
 let imgLink = ref("");
-let userStore;
 let attempt = 0;
 const history = ref([]);
 
@@ -17,16 +23,7 @@ const username = ref("Loading..");
 
 function getStore() {
   try {
-    userStore = useUserStore();
-    profileLink.value = userStore.user[9].profileImage;
-    imgLink.value = localhost + profileLink.value;
-
-    firstName.value = userStore.user[9].fName;
-    lastName.value = userStore.user[9].lName;
-    email.value = userStore.user[9].email;
-    username.value = userStore.user[9].username;
-
-    history.value = Array.from(userStore.user[1].quizHistory);
+    useUserStore().getUser(userAuth.user.userId, userAuth.user.userToken);
 
     console.log("image", imgLink.value);
   } catch (e) {
@@ -41,6 +38,16 @@ function getStore() {
     }
   }
 }
+watch(userStore, (newValue) => {
+  firstName.value = newValue.user.fName;
+  lastName.value = newValue.user.lName;
+  email.value = newValue.user.email;
+  username.value = newValue.user.username;
+
+  // profileLink.value = userStore.user[9].profileImage;
+  // imgLink.value = localhost + profileLink.value;
+  history.value = Array.from(newValue.user.quizHistory);
+})
 getStore();
 </script>
 
@@ -56,7 +63,7 @@ getStore();
     </div>
     <div class="imageBox">
       <div class="history">
-        <main><History :quiz-history="history" /></main>
+        <main><History :history="history.slice(0, 10)" /></main>
       </div>
     </div>
   </div>
