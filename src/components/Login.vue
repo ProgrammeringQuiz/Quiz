@@ -2,6 +2,7 @@
 import {ref} from "vue";
 import {useRouter} from "vue-router"
 import { useUserStore } from "@/stores/user";
+import signInUser from "../composables/useSignIn.js"
 
 
 let userStore = useUserStore();
@@ -12,13 +13,12 @@ const errMsg = ref();
 const router = useRouter();
 
 const signIn = () => {
-  console.log("Password: ", password.value)
-  console.log("Bcrypt Password: ", userStore.user[9].password)
-  console.log("Username: ", userStore.user.find(username.value))
-  if (username.value == userStore.user[9].username && password.value == userStore.user[9].password)
-  router.push("/profile")
-  else
-  errMsg.value = "Incorrect username or password"
+  signInUser().signInInput({
+    username: `${username.value}`,
+    password: `${password.value}`
+  })
+
+  console.log("JWT: ", signInUser().getToken.value)
 }
 
 </script>
