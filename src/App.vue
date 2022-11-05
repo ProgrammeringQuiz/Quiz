@@ -40,6 +40,7 @@ function BarText() {
           <RouterLink class="route" @click="show = !show" to="/History">
             History
           </RouterLink>
+          <button @click="authStore.logout(), show = !show">Sign out</button>
         </nav>
       </Transition>
 
@@ -91,6 +92,20 @@ function BarText() {
   box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
 }
 
+button {
+  width: 10vw;
+  background-color: #2d4263;
+  color: #e3e3e3;
+  padding: 32.5px 0;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #232747;
+}
+
 nav {
   background-color: #2d4263;
   position: absolute;
@@ -111,6 +126,11 @@ nav a {
 }
 
 @media screen and (min-width: 1024px) {
+
+  button {
+    width: 10%;
+  }
+
   .wrapper {
     display: flex;
     justify-content: space-evenly;
