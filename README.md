@@ -15,6 +15,7 @@ See [Vite Configuration Reference](https://vitejs.dev/config/).
 ```sh
 npm install
 npm install -g json-server
+npm install vue3-simple-file-input
 ```
 ### Run Json-Server
 Change directory to json before running this

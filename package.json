@@ -16,7 +16,8 @@
     "express": "^4.18.2",
     "pinia": "^2.0.23",
     "vue": "^3.2.38",
-    "vue-router": "^4.1.5"
+    "vue-router": "^4.1.5",
+    "vue3-simple-file-input": "^1.0.3"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.4",

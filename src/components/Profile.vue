@@ -43,9 +43,8 @@ watch(userStore, (newValue) => {
   lastName.value = newValue.user.lName;
   email.value = newValue.user.email;
   username.value = newValue.user.username;
-
-  // profileLink.value = userStore.user[9].profileImage;
-  // imgLink.value = localhost + profileLink.value;
+  profileLink.value = newValue.user.profileImage;
+  imgLink.value = "http://localhost:8080/" + profileLink.value;
   history.value = Array.from(newValue.user.quizHistory);
 })
 getStore();
