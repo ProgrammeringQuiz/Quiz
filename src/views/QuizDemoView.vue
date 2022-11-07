@@ -1,18 +1,8 @@
 <script setup>
 import Question from "../components/Question.vue";
-import { onMounted } from "vue";
 import { useQuizStore } from "../stores/quiz";
 
 const quizStore = useQuizStore();
-
-onMounted(() => {
-  fetch("http://localhost:8080/getQuestions")
-    .then((response) => response.json())
-    .then((data) => {
-      quizStore.setQuiz(data.quizDemo);
-      console.log(data);
-    });
-});
 </script>
 
 <template>

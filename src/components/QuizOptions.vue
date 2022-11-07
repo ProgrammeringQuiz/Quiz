@@ -1,9 +1,10 @@
 <script setup>
 import { RouterLink, RouterView, useRoute } from "vue-router";
 import quizData from "../../json/quizLanguage.json";
-
+import { useQuizStore } from "@/stores/quiz";
 const id = useRoute().params.id;
 const quizLanguage = quizData.quizLanguage[id].quiz;
+const quizStore = useQuizStore();
 </script>
 
 <template>
@@ -17,8 +18,9 @@ const quizLanguage = quizData.quizLanguage[id].quiz;
         v-for="(quiz, index) in quizLanguage"
         :key="quiz.id"
         :id="'quiz' + index"
+
       >
-        <RouterLink class="quiz" to="/quizDemo"> {{ quiz }} </RouterLink>
+        <RouterLink class="quiz" to="/quizDemo" @click="quizStore.selectQuiz(quiz)"> {{ quiz }} </RouterLink>
       </div>
     </div>
   </div>

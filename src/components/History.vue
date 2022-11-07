@@ -36,7 +36,8 @@ getStore();
     <h2>Best result:</h2>
     <p v-for="index in highestScore.length" id="index">
       {{ index }}. {{ highestScore[index - 1].quizName }} -
-      {{ highestScore[index - 1].score }} / {{ highestScore[index - 1].scoreOf }}
+      {{ highestScore[index - 1].score }} /
+      {{ highestScore[index - 1].scoreOf }}
     </p>
   </div>
 </template>
