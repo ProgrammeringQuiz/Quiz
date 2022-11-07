@@ -1,22 +1,54 @@
 <script setup>
+import {signUpRequest} from "@/apis/signUp";
+import {ref} from "vue";
+import {useAuthStore} from "@/stores/authStore.js";
+import FileInput from 'vue3-simple-file-input'
+
+let authStore = useAuthStore();
+
+const username = ref();
+const password = ref();
+const firstName = ref();
+const lastName = ref();
+const email = ref();
+const profileImage = ref();
+
+const signUp = async () => {
+  console.log("profileImage: ", profileImage.value)
+  await authStore.signUp({
+    username: `${username.value}`,
+    password: `${password.value}`,
+    fName: `${firstName.value}`,
+    lName: `${lastName.value}`,
+    email: `${email.value}`,
+    profileImage: `${profileImage.value.fileBlob.toString()}`
+  })
+
+}
 
 </script>
 
 <template>
-  <form action="">
+  <form action="" @submit.prevent="onSubmit">
     <h1>Sign up</h1>
-    <label for="firstName"></label>
-    <input type="text" placeholder="First Name" id="firstName" />
-    <label for="lastName"></label>
-    <input type="text" placeholder="Last Name" id="lastName" />
-    <label for="email"></label>
-    <input type="text" placeholder="Email" id="email" />
     <label for="username"></label>
-    <input type="text" placeholder="Username" id="username" />
-
+    <input type="text" placeholder="Username" id="username" v-model="username"/>
     <label for="password"></label>
-    <input type="password" placeholder="Password" id="password" />
-    <button>Confirm</button>
+    <input type="password" placeholder="Password" id="password" v-model="password"/>
+    <label for="firstName"></label>
+    <input type="text" placeholder="First Name" id="firstName" v-model="firstName"/>
+    <label for="lastName"></label>
+    <input type="text" placeholder="Last Name" id="lastName" v-model="lastName"/>
+    <label for="email"></label>
+    <input type="text" placeholder="Email" id="email" v-model="email"/>
+    <label for="file"></label>
+    <file-input v-model="profileImage" />
+
+    <button @click="signUp()">Confirm</button>
+
+
+
+
   </form>
 </template>
 

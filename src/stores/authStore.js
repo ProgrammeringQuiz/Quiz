@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 
 import { router } from '@/router';
 import {signInRequest} from "@/apis/signIn.js";
+import {signUpRequest} from "@/apis/signUp";
 
 
 export const useAuthStore = defineStore({
@@ -24,6 +25,11 @@ export const useAuthStore = defineStore({
             this.user = null;
             localStorage.removeItem('user');
             router.push('/login');
+        },
+        async signUp(input) {
+            console.log("authStoreInput: ", input)
+            await signUpRequest(input);
+
         }
     }
 });
