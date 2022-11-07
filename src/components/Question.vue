@@ -219,7 +219,8 @@ function prevQuestion() {
   }
 
   .content img {
-    max-width: 100%;
+    width: 40em;
+    height: 25em;
   }
 
   .choices {
