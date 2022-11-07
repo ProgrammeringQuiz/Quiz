@@ -42,18 +42,15 @@ const signIn = async () => {
 
 <style scoped>
 form {
-  height: 400px;
-  width: 300px;
+  display: flex;
+  flex-direction: column;
   background-color: #2d4263;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  top: 50%;
-  left: 50%;
-  border-radius: 10px;
-  backdrop-filter: blur(10px);
+  max-width: 20em;
+  margin: 10em auto;
+  border-radius: 0.625em;
   border: 2px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
-  padding: 50px 35px;
+  padding: 3.125em 2.1875em;
 }
 
 form * {
