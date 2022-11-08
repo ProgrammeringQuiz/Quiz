@@ -1,9 +1,7 @@
 <script setup>
-
 const props = defineProps({
   history: Object,
 })
-
 </script>
 
 <template>

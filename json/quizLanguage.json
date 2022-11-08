@@ -10,18 +10,18 @@
     },
     {
       "quiz": [
-        "Variables",
-        "Classes",
-        "Loops",
-        "Arrays"
+        "Java-Variables",
+        "Java-Classes",
+        "Java-Loops",
+        "Java-Arrays"
       ]
     },
     {
       "quiz": [
-        "Variables",
-        "Functions",
-        "Loops",
-        "Arrays"
+        "Js-Variable",
+        "Js-Function",
+        "Js-Loops",
+        "Js-Array"
       ]
     },
     {
