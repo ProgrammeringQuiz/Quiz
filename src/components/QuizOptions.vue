@@ -13,15 +13,16 @@ const quizStore = useQuizStore();
       <h1>Choose your quiz:</h1>
     </div>
     <div class="content">
-      <div
+      <RouterLink
         class="quizLanguage"
         v-for="(quiz, index) in quizLanguage"
         :key="quiz.id"
         :id="'quiz' + index"
-
+        to="/quizDemo"
+        @click="quizStore.selectQuiz(quiz)"
       >
-        <RouterLink class="quiz" to="/quizDemo" @click="quizStore.selectQuiz(quiz)"> {{ quiz }} </RouterLink>
-      </div>
+        {{ quiz }}
+      </RouterLink>
     </div>
   </div>
 
@@ -37,7 +38,7 @@ const quizStore = useQuizStore();
   color: #c84b31;
 }
 
-.content{
+.content {
   display: flex;
   flex-direction: column;
 }
@@ -60,11 +61,6 @@ const quizStore = useQuizStore();
   background-color: #232747;
 }
 
-.quiz {
-  text-decoration: none;
-  color: white;
-}
-
 h2 {
   font-size: 2.2em;
 }
@@ -76,8 +72,6 @@ h2 {
   flex-grow: 1;
   margin: 1em;
 }
-
-
 
 @media screen and (min-width: 1024px) {
   .pageText {

@@ -11,22 +11,18 @@ const quizLanguage = languageData.quizLanguage[0].language;
       <h1>Choose the language you want to have a quiz on:</h1>
     </div>
     <div class="content">
-      <div
+      <RouterLink
         class="quizLanguage"
         v-for="(language, index) in quizLanguage"
         :key="language.id"
         :id="'language' + index"
+        :to="{
+          name: `quizOptions`,
+          params: { name: language, id: index + 1 },
+        }"
       >
-        <RouterLink
-          class="languageText"
-          :to="{
-            name: `quizOptions`,
-            params: { name: language, id: index + 1 },
-          }"
-        >
-          {{ language }}
-        </RouterLink>
-      </div>
+        {{ language }}
+      </RouterLink>
     </div>
   </div>
 
@@ -62,11 +58,6 @@ const quizLanguage = languageData.quizLanguage[0].language;
 
 .quizLanguage:hover {
   background-color: #232747;
-}
-
-.languageText {
-  text-decoration: none;
-  color: white;
 }
 
 .home {
