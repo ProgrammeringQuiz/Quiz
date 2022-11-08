@@ -1,8 +1,6 @@
 <script setup>
-import {signUpRequest} from "@/apis/signUp";
 import {ref} from "vue";
 import {useAuthStore} from "@/stores/authStore.js";
-import FileInput from 'vue3-simple-file-input'
 
 let authStore = useAuthStore();
 
@@ -11,19 +9,18 @@ const password = ref();
 const firstName = ref();
 const lastName = ref();
 const email = ref();
-const profileImage = ref();
+const errMsg = ref();
+
 
 const signUp = async () => {
-  console.log("profileImage: ", profileImage.value)
   await authStore.signUp({
     username: `${username.value}`,
     password: `${password.value}`,
     fName: `${firstName.value}`,
     lName: `${lastName.value}`,
     email: `${email.value}`,
-    profileImage: `${profileImage.value.fileBlob.toString()}`
   })
-
+  errMsg.value = authStore.signUpErr;
 }
 
 </script>
@@ -41,9 +38,7 @@ const signUp = async () => {
     <input type="text" placeholder="Last Name" id="lastName" v-model="lastName"/>
     <label for="email"></label>
     <input type="text" placeholder="Email" id="email" v-model="email"/>
-    <label for="file"></label>
-    <file-input v-model="profileImage" />
-
+    <p v-if="errMsg">{{ errMsg }}</p>
     <button @click="signUp()">Confirm</button>
 
 
