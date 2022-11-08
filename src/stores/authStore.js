@@ -32,7 +32,7 @@ export const useAuthStore = defineStore({
             const signUpUser = await signUpRequest(input);
             this.signUpErr = signUpUser.errMsg;
             if (this.signUpErr === undefined) {
-                router.push(this.returnUrl || '/login');
+                router.push('/login');
                 alert("Sign up completed")
             }
         }
