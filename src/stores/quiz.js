@@ -1,5 +1,8 @@
 import { defineStore } from "pinia";
 import { computed, onMounted, ref } from "vue";
+import {useAuthStore} from "@/stores/authStore";
+
+
 
 export const useQuizStore = defineStore("quiz", () => {
   let questionCompleted = ref(false);
@@ -53,8 +56,9 @@ export const useQuizStore = defineStore("quiz", () => {
     if (questionNumber.value < quiz.value.length - 1) {
       questionNumber.value++;
     } else {
+      const userAuth = useAuthStore();
       quizCompleted.value = true;
-      const userId = "635a10fb3886e20608df40f9";
+      const userId = userAuth.user.userId;
 
       const updateUserQuizHistory = {
         method: "PUT",

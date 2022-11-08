@@ -1,19 +1,25 @@
 import { defineStore } from "pinia";
-import { onMounted, ref } from "vue";
 
-export const useUserStore = defineStore("user", () => {
-  const user = ref([]);
-  onMounted(() => {
-    fetch("http://localhost:8080/api/user/")
-      .then((response) => response.json())
-      .then((data) => {
-        user.value = data.data;
-        console.log(data);
-      })
-      .catch((err) => console.log(err));
-  });
+export const useUserStore = defineStore( {
 
-  return {
-    user,
-  };
+    id: 'user',
+        state: () => ({
+        user:  null
+    }),
+        actions: {
+            getUser(userId, userToken) {
+                fetch(`http://localhost:8080/api/user/${userId}`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "auth-token": userToken
+                    }
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        this.user = data.data;
+                    })
+                    .catch((err) => console.log(err));
+            }
+        }
 });
