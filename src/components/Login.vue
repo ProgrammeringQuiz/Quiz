@@ -14,7 +14,7 @@ const signIn = async () => {
         username: `${username.value}`,
         password: `${password.value}`
       })
-
+  errMsg.value = authStore.err.msg;
 }
 
 </script>
