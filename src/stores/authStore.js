@@ -11,6 +11,7 @@ export const useAuthStore = defineStore({
         user: JSON.parse(localStorage.getItem('user')),
         err: JSON.parse(localStorage.getItem('err')),
         signUpErr: JSON.parse(localStorage.getItem('signUpErr')),
+        logoutButton: JSON.parse(localStorage.getItem('logoutButton')),
         returnUrl: null
     }),
     actions: {
@@ -20,11 +21,13 @@ export const useAuthStore = defineStore({
             this.err = userInfo;
             if (this.err.msg === undefined) {
                 localStorage.setItem('user', JSON.stringify(userInfo));
+                this.logoutButton = true;
                 router.push(this.returnUrl || '/profile');
             }
         },
         logout() {
             this.user = null;
+            this.logoutButton = false;
             localStorage.removeItem('user');
             router.push('/login');
         },
