@@ -7,10 +7,6 @@ let profileLink = ref("loading...");
 
 const userAuth = useAuthStore();
 const userStore = useUserStore();
-console.log("userInfo Profile: ", userAuth.user)
-const localhost = "http://localhost:8080/api/user/" + userAuth.user.userId;
-
-console.log("localhost: ", localhost)
 
 let imgLink = ref("");
 let attempt = 0;
@@ -24,13 +20,10 @@ const username = ref("Loading..");
 function getStore() {
   try {
     useUserStore().getUser(userAuth.user.userId, userAuth.user.userToken);
-
-    console.log("image", imgLink.value);
   } catch (e) {
     if (attempt > 10) {
       throw new Error("Something went wrong");
     } else {
-      console.log(attempt);
       attempt++;
       setTimeout(() => {
         getStore();
