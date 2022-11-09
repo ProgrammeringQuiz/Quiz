@@ -10,10 +10,11 @@ const errMsg = ref();
 
 const signIn = async () => {
   await authStore.login({
-    username: `${username.value}`,
-    password: `${password.value}`,
-  });
-};
+        username: `${username.value}`,
+        password: `${password.value}`
+      })
+  errMsg.value = authStore.err.msg;
+}
 </script>
 
 <template>

@@ -1,9 +1,10 @@
 <script setup>
 import { RouterLink, RouterView, useRoute } from "vue-router";
 import quizData from "../../json/quizLanguage.json";
-
+import { useQuizStore } from "@/stores/quiz";
 const id = useRoute().params.id;
 const quizLanguage = quizData.quizLanguage[id].quiz;
+const quizStore = useQuizStore();
 </script>
 
 <template>
@@ -12,14 +13,16 @@ const quizLanguage = quizData.quizLanguage[id].quiz;
       <h1>Choose your quiz:</h1>
     </div>
     <div class="content">
-      <div
+      <RouterLink
         class="quizLanguage"
         v-for="(quiz, index) in quizLanguage"
         :key="quiz.id"
         :id="'quiz' + index"
+        to="/quizDemo"
+        @click="quizStore.selectQuiz(quiz)"
       >
-        <RouterLink class="quiz" to="/quizDemo"> {{ quiz }} </RouterLink>
-      </div>
+        {{ quiz }}
+      </RouterLink>
     </div>
   </div>
 
@@ -35,7 +38,7 @@ const quizLanguage = quizData.quizLanguage[id].quiz;
   color: #c84b31;
 }
 
-.content{
+.content {
   display: flex;
   flex-direction: column;
 }
@@ -58,11 +61,6 @@ const quizLanguage = quizData.quizLanguage[id].quiz;
   background-color: #232747;
 }
 
-.quiz {
-  text-decoration: none;
-  color: white;
-}
-
 h2 {
   font-size: 2.2em;
 }
@@ -74,8 +72,6 @@ h2 {
   flex-grow: 1;
   margin: 1em;
 }
-
-
 
 @media screen and (min-width: 1024px) {
   .pageText {

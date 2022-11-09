@@ -7,6 +7,7 @@ const props = defineProps({
   questionSize: ref(),
   questionNumber: ref(0),
   questionCompleted: ref(),
+  imgLink: Object,
 });
 const quizStore = useQuizStore();
 const answerStatus = ref();
@@ -27,17 +28,29 @@ function checkAnswer(index) {
 
 function nextQuestion() {
   quizStore.nextQuestion();
-  if (quizStore.userAnswers[quizStore.questionNumber]) {
+  if (quizStore.userAnswers[quizStore.questionNumber] || quizStore.userAnswers[quizStore.questionNumber] === 0) {
     chosenAnswer.value = quizStore.userAnswers[quizStore.questionNumber];
+    if (quizStore.quiz[quizStore.questionNumber].answer === chosenAnswer.value) {
+      answerStatus.value = 2;
+    } else {
+      answerStatus.value = 1;
+    }
   } else {
     chosenAnswer.value = null;
     questionAnswered.value = false;
+    answerStatus.value = null;
   }
+
 }
 function prevQuestion() {
   questionAnswered.value = true;
   quizStore.previousQuestion();
   chosenAnswer.value = quizStore.userAnswers[quizStore.questionNumber];
+  if (quizStore.quiz[quizStore.questionNumber].answer === chosenAnswer.value) {
+    answerStatus.value = 2;
+  } else {
+    answerStatus.value = 1;
+  }
 }
 </script>
 
@@ -50,7 +63,7 @@ function prevQuestion() {
       <p class="progress">
         {{ props.questionNumber }} / {{ props.questionSize.length }}
       </p>
-      <img src="src/assets/placeholder-image.png" alt="placeholder-img" />
+      <img :src="props.imgLink" alt="placeholder-img" />
       <h1>{{ props.questionData.question }}</h1>
     </div>
 
@@ -218,7 +231,8 @@ function prevQuestion() {
   }
 
   .content img {
-    max-width: 100%;
+    width: 40em;
+    height: 25em;
   }
 
   .choices {
