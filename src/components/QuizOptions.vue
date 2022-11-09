@@ -18,7 +18,7 @@ const quizStore = useQuizStore();
         v-for="(quiz, index) in quizLanguage"
         :key="quiz.id"
         :id="'quiz' + index"
-        to="/quizDemo"
+        to="/Quiz"
         @click="quizStore.selectQuiz(quiz)"
       >
         {{ quiz }}
