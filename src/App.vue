@@ -1,6 +1,6 @@
 <script setup>
-import {RouterLink, RouterView, useRoute} from "vue-router";
-import {useAuthStore} from "@/stores/authStore";
+import { RouterLink, RouterView, useRoute } from "vue-router";
+import { useAuthStore } from "@/stores/authStore";
 import { ref } from "vue";
 
 let show = ref(false);
@@ -9,13 +9,12 @@ const authStore = useAuthStore();
 function BarText() {
   let text;
   if (useRoute().params.name == null) {
-    text = useRoute().name
-  }else {
-    text = useRoute().params.name
+    text = useRoute().name;
+  } else {
+    text = useRoute().params.name;
   }
-  return text
+  return text;
 }
-
 </script>
 
 <template>
@@ -40,14 +39,22 @@ function BarText() {
           <RouterLink class="route" @click="show = !show" to="/History">
             History
           </RouterLink>
-          <button @click="authStore.logout(), show = !show">Sign out</button>
+          <a
+            class="route"
+            @click="
+              authStore.logout();
+              show = !show;
+            "
+          >
+            Sign out
+          </a>
         </nav>
       </Transition>
 
       <nav id="desktop">
         <RouterLink class="route" to="/">Home</RouterLink>
         <RouterLink class="route" to="/profile">Profile</RouterLink>
-        <button @click="authStore.logout()">Sign out</button>
+        <a class="route" @click="authStore.logout()">Sign out</a>
       </nav>
     </div>
   </header>
@@ -116,6 +123,7 @@ nav a {
   padding: 0.8em;
   text-decoration: none;
   color: white;
+  cursor: pointer
 }
 .route:hover {
   background-color: #232747;
@@ -126,7 +134,6 @@ nav a {
 }
 
 @media screen and (min-width: 1024px) {
-
   button {
     width: 10%;
   }
@@ -166,7 +173,7 @@ nav a {
   }
 
   .route:hover {
-    background-color: #232747
+    background-color: #232747;
   }
 }
 </style>
@@ -182,5 +189,7 @@ body {
     max-width: 100em;
     margin: auto;
   }
+
+
 }
 </style>

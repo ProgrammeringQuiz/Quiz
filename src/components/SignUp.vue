@@ -29,39 +29,61 @@ const signUp = async () => {
   <form action="" @submit.prevent="onSubmit">
     <h1>Sign up</h1>
     <label for="username"></label>
-    <input type="text" placeholder="Username" id="username" v-model="username"/>
+    <input
+      class="userInput"
+      type="text"
+      placeholder="Username"
+      id="username"
+      v-model="username"
+    />
     <label for="password"></label>
-    <input type="password" placeholder="Password" id="password" v-model="password"/>
+    <input
+      class="userInput"
+      type="password"
+      placeholder="Password"
+      id="password"
+      v-model="password"
+    />
     <label for="firstName"></label>
-    <input type="text" placeholder="First Name" id="firstName" v-model="firstName"/>
+    <input
+      class="userInput"
+      type="text"
+      placeholder="First Name"
+      id="firstName"
+      v-model="firstName"
+    />
     <label for="lastName"></label>
-    <input type="text" placeholder="Last Name" id="lastName" v-model="lastName"/>
+    <input
+      class="userInput"
+      type="text"
+      placeholder="Last Name"
+      id="lastName"
+      v-model="lastName"
+    />
     <label for="email"></label>
-    <input type="text" placeholder="Email" id="email" v-model="email"/>
+    <input
+      class="userInput"
+      type="text"
+      placeholder="Email"
+      id="email"
+      v-model="email"
+    />
     <p v-if="errMsg">{{ errMsg }}</p>
     <button @click="signUp()">Confirm</button>
-
-
-
-
   </form>
 </template>
 
 <style scoped>
-
 form {
-  height: 500px;
-  width: 500px;
+  display: flex;
+  flex-direction: column;
   background-color: #2d4263;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  top: 50%;
-  left: 50%;
-  border-radius: 10px;
-  backdrop-filter: blur(10px);
+  max-width: 20em;
+  margin: 10em auto;
+  border-radius: 0.625em;
   border: 2px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
-  padding: 50px 35px;
+  padding: 3.125em 2.1875em;
 }
 
 form * {
@@ -69,6 +91,7 @@ form * {
   color: #ffffff;
   outline: none;
   border: none;
+  justify-content: center;
 }
 
 form h1 {
@@ -84,11 +107,13 @@ label {
   font-weight: 500;
 }
 
+.userInput {
+  background-color: rgba(255, 255, 255, 0.07);
+}
+
 input {
   display: block;
   height: 50px;
-  width: 96%;
-  background-color: rgba(255, 255, 255, 0.07);
   border-radius: 3px;
   padding: 0 10px;
   margin-top: 8px;
@@ -104,7 +129,6 @@ input {
 button {
   margin-top: 30px;
   margin-bottom: 30px;
-  width: 100%;
   background-color: rgba(255, 255, 255, 0.07);
   color: #e3e3e3;
   padding: 15px 0;
@@ -117,7 +141,15 @@ button {
 button:hover {
   background-color: #232747;
 }
-
-
-
+input[type="file"] {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+.fileLabel {
+  margin-top: 0.5em;
+  padding: 0.5em;
+  background-color: rgba(255, 255, 255, 0.07);
+  cursor: pointer;
+}
 </style>

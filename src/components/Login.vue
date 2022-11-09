@@ -1,6 +1,6 @@
 <script setup>
-import {ref} from "vue";
-import {useAuthStore} from "@/stores/authStore.js";
+import { ref } from "vue";
+import { useAuthStore } from "@/stores/authStore.js";
 
 let authStore = useAuthStore();
 
@@ -9,23 +9,31 @@ const password = ref();
 const errMsg = ref();
 
 const signIn = async () => {
-
   await authStore.login({
         username: `${username.value}`,
         password: `${password.value}`
       })
   errMsg.value = authStore.err.msg;
 }
-
 </script>
 
 <template>
   <form action="" @submit.prevent="onSubmit">
     <h1>Welcome</h1>
     <label for="username"></label>
-    <input type="text" placeholder="Username" id="username" v-model="username"/>
+    <input
+      type="text"
+      placeholder="Username"
+      id="username"
+      v-model="username"
+    />
     <label for="password"></label>
-    <input type="password" placeholder="Password" id="password" v-model="password"/>
+    <input
+      type="password"
+      placeholder="Password"
+      id="password"
+      v-model="password"
+    />
     <p v-if="errMsg">{{ errMsg }}</p>
     <button @click="signIn">Sign In</button>
     <span>Need an account? </span>
@@ -34,20 +42,16 @@ const signIn = async () => {
 </template>
 
 <style scoped>
-
 form {
-  height: 400px;
-  width: 300px;
+  display: flex;
+  flex-direction: column;
   background-color: #2d4263;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  top: 50%;
-  left: 50%;
-  border-radius: 10px;
-  backdrop-filter: blur(10px);
+  max-width: 20em;
+  margin: 10em auto;
+  border-radius: 0.625em;
   border: 2px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
-  padding: 50px 35px;
+  padding: 3.125em 2.1875em;
 }
 
 form * {
@@ -103,14 +107,4 @@ button {
 button:hover {
   background-color: #232747;
 }
-
-@media screen and (max-width: 1024px) {
-  button {
-    width: 100%;
-    height: 100%;
-  }
-}
-
-
-
 </style>
