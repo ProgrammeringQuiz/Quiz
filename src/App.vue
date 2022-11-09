@@ -144,7 +144,7 @@ nav a {
   }
   .quiz {
     flex-grow: 1;
-    margin: 1em;
+    margin: 1.5em 1em 1em 1em;
   }
   .hamburger i {
     display: none;
