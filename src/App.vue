@@ -1,10 +1,11 @@
 <script setup>
 import { RouterLink, RouterView, useRoute } from "vue-router";
 import { useAuthStore } from "@/stores/authStore";
-import { ref } from "vue";
+import {ref, watch} from "vue";
 
 let show = ref(false);
 const authStore = useAuthStore();
+const logoutButton = ref(false)
 
 function BarText() {
   let text;
@@ -15,6 +16,10 @@ function BarText() {
   }
   return text;
 }
+
+watch(authStore, (newValue) => {
+  logoutButton.value = newValue.logoutButton;
+})
 </script>
 
 <template>
@@ -39,13 +44,7 @@ function BarText() {
           <RouterLink class="route" @click="show = !show" to="/History">
             History
           </RouterLink>
-          <a
-            class="route"
-            @click="
-              authStore.logout();
-              show = !show;
-            "
-          >
+          <a class="route" v-if="logoutButton" @click="authStore.logout();show = !show;">
             Sign out
           </a>
         </nav>
@@ -54,7 +53,7 @@ function BarText() {
       <nav id="desktop">
         <RouterLink class="route" to="/">Home</RouterLink>
         <RouterLink class="route" to="/profile">Profile</RouterLink>
-        <a class="route" @click="authStore.logout()">Sign out</a>
+        <a class="route" v-if="logoutButton" @click="authStore.logout()">Sign out</a>
       </nav>
     </div>
   </header>
