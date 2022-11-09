@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from "vue-router";
-import QuizDemo from "../views/QuizDemoView.vue";
+import Quiz from "../views/QuizView.vue";
 import QuizOptions from "../views/QuizOptionsView.vue";
 import HomeView from "../views/HomeView.vue";
 import History from "../components/History.vue";
-import Login from "../components/Login.vue"
-import SignUp from "../components/SignUp.vue"
-import { useAuthStore } from '@/stores/authStore.js';
+import Login from "../components/Login.vue";
+import SignUp from "../components/SignUp.vue";
+import { useAuthStore } from "@/stores/authStore.js";
 
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,9 +21,9 @@ export const router = createRouter({
       component: () => QuizOptions,
     },
     {
-      path: "/quizDemo",
-      name: "quizDemo",
-      component: QuizDemo,
+      path: "/Quiz",
+      name: "Quiz",
+      component: Quiz,
     },
     {
       path: "/profile",
@@ -57,6 +57,6 @@ router.beforeEach(async (to) => {
     auth.returnUrl = to.fullPath;
     return "/login";
   }
-})
+});
 
 export default router;
