@@ -1,5 +1,6 @@
 <script setup>
 import Question from "../components/Question.vue";
+import { RouterLink } from "vue-router";
 import { useQuizStore } from "../stores/quiz";
 
 const quizStore = useQuizStore();
@@ -8,10 +9,13 @@ const quizStore = useQuizStore();
 <template>
   <main v-if="quizStore.quiz">
     <div class="result" v-if="quizStore.quizCompleted">
-      <h1>
+      <div><h1>
         You did it! Your score is {{ quizStore.totalScore }} /
         {{ quizStore.quiz.length }}
       </h1>
+      </div>
+
+      <RouterLink class="continue" to="/">Back to quiz</RouterLink>
     </div>
     <Question
       v-else
@@ -29,6 +33,23 @@ const quizStore = useQuizStore();
 </template>
 
 <style scoped>
+
+.continue {
+  box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+  padding: 1em;
+  margin-top: 1em;
+  border: 5px;
+  color: white;
+  border-radius: 2em;
+  cursor: pointer;
+  background-color: #2d4263;
+  text-decoration: none;
+}
+
+.continue:hover {
+  background-color: #232747;
+}
+
 .result {
   max-width: 35em;
   margin: 5em auto auto;
